@@ -19,9 +19,16 @@ app.use(bodyParser.json())
 //})
 
 app.get('/api', (req, res) => {
-    let sql = 'select * from test'
+    let sql = 'select * from User'
     db_conn.query(sql, (err, result) => {
         res.send(JSON.stringify(result[0]))
+    })
+})
+
+app.get('/api/kindergardens', (req, res) => {
+    let sql = 'select * from KinderGarden'
+    db_conn.query(sql, (err, result) => {
+        res.send(JSON.stringify(result))
     })
 })
 
