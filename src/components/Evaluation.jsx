@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { Radio, RadioGroup, TextField, FormLabel, FormGroup, FormControl, FormControlLabel, Button } from '@material-ui/core'
+import axios from 'axios'
 
 function Evaluation() {
     
     const [inputs, setInputs] = useState()
 
-    const confirmDataSend = () => {
-        
+    const confirmDataSend = async () => {
+        console.log(inputs)
+        await axios.post('http://localhost:9000/api/kininputs', { inputs }).then(res => console.log(res.status))
     }
 
     const onChangeHandler = (e) => {
@@ -18,7 +20,7 @@ function Evaluation() {
     return(
         <div className='eval-container'>
             <FormGroup>
-                <TextField name='writer' required label='필수' defaultValue='작성자' onChange={onChangeHandler}/>
+                <TextField name='writer' required label='필수' placeholder='유치원 이름' onChange={onChangeHandler}/>
                 <TextField name='comment' label='의견' multiline rows={4} onChange={onChangeHandler}/>
             </FormGroup>
             <FormControl component='fieldset'>

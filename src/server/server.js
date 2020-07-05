@@ -4,37 +4,16 @@ const http = require('http');
 const app = express();
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const db = require('./database');
-const db_conn = db.init();
-db.conn(db_conn);
+
+// router
+const api = require('./routes/api');
+app.use('/api', api)
 
 const port = process.env.port || 9000;
 const front_end = path.join(__dirname, '..', '..', 'build/')
 app.use(cors())
 app.use(express.static(front_end))
 app.use(bodyParser.json())
-
-//app.use('*', (req, res) => {
-//    res.sendFile(front_end + 'index.html')
-//})
-
-app.get('/api', (req, res) => {
-    let sql = 'select * from User'
-    db_conn.query(sql, (err, result) => {
-        res.send(JSON.stringify(result[0]))
-    })
-})
-
-app.get('/api/kindergardens', (req, res) => {
-    let sql = 'select * from KinderGarden'
-    db_conn.query(sql, (err, result) => {
-        res.send(JSON.stringify(result))
-    })
-})
-
-app.get('/', (req, res) => {
-    res.send({hi: "hi"})
-})
 
 module.exports = app;
 const server =  app.listen(port, () => {

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Navs from './components/Navs.jsx'
+import SideBar from './components/SideBar.jsx';
 
 import myutil from './mylib/MyUtils'
 import './styles/App.scss'
@@ -22,9 +23,12 @@ export default function App() {
         <div className='app-container'>
             <button onClick={callAPI}>call</button>
             {myutil.isEmpty(data) ? 'blank' : show}
-            <div className='nav-container'>
+            <section className='nav-container'>
                 <Navs />
-            </div>
+            </section>
+            <aside className='side-bar'>
+                <SideBar />
+            </aside>
         </div>
     )
 }

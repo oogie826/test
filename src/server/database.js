@@ -1,14 +1,8 @@
 const mysql = require('mysql');
-
-db_config = {
-    host: "localhost",
-    user: "manager",
-    password: "manager",
-    database: "mydata"
-};
+const cfg = require('./configs')
 
 function init() {
-    return mysql.createConnection(db_config);
+    return mysql.createConnection(cfg.db);
 }
 
 function conn(init) {

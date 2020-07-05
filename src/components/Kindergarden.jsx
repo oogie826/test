@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+import MyUtils from '../mylib/MyUtils.js'
 
-export default function Kindergarden({kinderGarden, title}) {
-
-    const kg_list = kinderGarden.map((val, idx) => 
-        <div key={idx}>{val[idx]}</div>
-    )
+export default function Kindergarden({loading, kinderGarden}) {
+    
+    const list = MyUtils.isEmpty(kinderGarden) ? '' : kinderGarden.map((val, idx) =>
+    <div key={idx}>{val.name} {val.comment} {val.teachers} {val.program} {val.overall} </div>
+    );
 
     return(
         <div>
-            {kg_list}
-            {title}
+            {loading ? 'loading' : list}
         </div>
     )
 }
