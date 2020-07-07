@@ -4,7 +4,7 @@ import MyUtils from '../mylib/MyUtils.js'
 export default function Kindergarden({loading, kinderGarden}) {
     
     const list = MyUtils.isEmpty(kinderGarden) ? '' : kinderGarden.map((val, idx) =>
-    <div key={idx}>{val.name} {val.comment} {val.teachers} {val.program} {val.overall} </div>
+    <div key={idx}>{val.name} {val.comment} {val.teachers} {val.program} {val.overall}</div>
     );
 
     return(

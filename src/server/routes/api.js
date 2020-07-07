@@ -36,4 +36,8 @@ router.post('/check', (req, res) => {
     res.status(200)
 })
 
+router.get('/signup', (req, res) => {
+    res.send({abcd: 'asd'})
+})
+
 module.exports = router;

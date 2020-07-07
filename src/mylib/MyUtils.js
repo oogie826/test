@@ -17,7 +17,7 @@ const MyUtils = (() => {
 
     // Returns true if obj is empty else false
     function isEmpty(obj) {    
-        if (obj === '' || obj === null || obj === undefined ||(obj !== null && typeof obj === 'object' && !Object.keys(obj).length)) {
+        if (obj === '' || obj === null || obj === undefined || (obj !== null && typeof obj === 'object' && !Object.keys(obj).length)) {
             return true            
         }
         else {

@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Link, Switch, Redirect } from 'react-router-dom'
 import Evaluation from './Evaluation.jsx'
 
 import '../styles/Navs.scss'
-import MyUtils from '../mylib/MyUtils.js'
 import Kindergarden from './Kindergarden.jsx'
 import LoginForm from './LoginForm.jsx'
 
-
-function Navs() {
+function Navs({myutils}) {
 
     const [kinderGarden, setKinderGarden] = useState([])
     const [loading, setLoading] = useState(true)
@@ -25,10 +23,6 @@ function Navs() {
         setLoading(false)
     }
 
-    function check() {
-        console.log(kinderGarden)
-    }
-
     return (
         <Router>
             <nav className='main-nav'>
@@ -37,7 +31,7 @@ function Navs() {
                 <Link className='link-to' to='/kinders' onClick={callKinderGardenList}>TO SHOW</Link>
             </nav>
             <Switch>
-                <Route exact path='/login' component={LoginForm}/>
+                <Route exact path='/login' component={() => <LoginForm myutils={myutils} />}/>
                 <Route exact path='/eval' component={Evaluation} />
                 <Route exact path='/kinders' component={() => <Kindergarden loading={loading} kinderGarden={kinderGarden} />} />
             </Switch>

@@ -1,15 +1,11 @@
 .app-container {
     border: 3px solid blue;
     display: flex;
+    justify-content: center;
 }
 
 .nav-container {
     position: relative;
     border: 2px solid green;
-    flex-basis: 70%;
-}
-
-.side-bar {
-    border: 2px solid orange;
-    flex-basis: 30%;
+    flex-basis: 50%;
 }
