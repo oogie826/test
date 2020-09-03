@@ -21,12 +21,24 @@ module.exports = {
                 exclude: [/node_modules/, /src\/server/],
             },
             {
+                test: /\.(ts|tsx)$/,
+                loader: 'ts-loader',
+                options: {
+                    transpileOnly: true,
+                },
+                exclude: /node_modules/
+            },
+            {
                 test: /\.html$/,
                 use: 'html-loader'
             },
             {
                 test: /\.(scss|css)$/,
                 use: ['style-loader', 'css-loader', 'sass-loader']
+            },
+            {
+                test: /\.(png|jpe?g|gif)$/i,
+                use: ['file-loader']
             },
         ]
     },

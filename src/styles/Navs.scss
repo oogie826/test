@@ -1,19 +1,24 @@
-nav {
-    .link-to {
-        margin: 1rem;
-        border: 1px solid red;
-    }
-}
-
 .main-nav {
-    border: 2px solid yellow;
-    margin: 1rem;
-
-    .link-to {
-        text-decoration: none;
-    }
+    position: relative;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    width: auto;
+    align-items: center;
+    margin-top: 1rem;
+    padding-left: 4rem;
+    padding-right: 4rem;
+    font-size: 1.2rem;
+    height: 10vh;
 }
-
-.eval-container {
-    border: 1px solid red;
+.nav-links {
+    margin-left: auto;
+}
+.nav-title {
+    font-family: 'Playfair Display', serif;
+    margin: 0;
+}
+.nav-link-to {
+    display: inline-block;
+    text-decoration: none;
 }
