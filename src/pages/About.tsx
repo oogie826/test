@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 export default function About() {
+
     return (
-        <>
-            About
-        </>
+        <section className='about-section'>
+            aa
+        </section>
     )
 }

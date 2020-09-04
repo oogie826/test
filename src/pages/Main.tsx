@@ -4,14 +4,27 @@ import '../styles/Main.scss'
 
 export default function Main() {
     return (
-        <>
-            <article className='home-article'>
-                <div className='home-texts'>
-                    <h1>Kinder Guards</h1>
-                    <p>Safer kindergarten for kids</p>
-                </div>
-                <div className='home-image'></div>
-            </article>
-        </>
+        <section className='main-section'>
+            <div className='main-texts'>
+                <span>K</span>
+                <span>i</span>
+                <span>n</span>
+                <span>d</span>
+                <span>e</span>
+                <span>r</span>
+                <span>G</span>
+                <span>u</span>
+                <span>a</span>
+                <span>r</span>
+                <span>d</span>
+                <span>s</span>
+            </div>
+            <div className='main-image'>
+                <span>SAFER</span>
+                <span>kindergarten</span>
+                <span>for</span>
+                <span>CHILDRENS.</span>
+            </div>
+        </section>
     )
 }
