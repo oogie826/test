@@ -29,10 +29,10 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: right center;
-    filter: grayscale(70%);
+    filter: grayscale(70%) sepia(20%);
 
     span {
-        color: #b0f3b9;
+        color: #ffffff;
         font-family: 'Roboto', sans-serif;
         font-size: 3rem;
         margin-left: 1rem;
