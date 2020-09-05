@@ -1,5 +1,5 @@
 import React from 'react'
-import MyUtils from '../../utils/MyUtils.js'
+import MyUtils from '../../utils/utils.js'
 
 export default function Kindergarden({loading, kinderGarden}) {
     

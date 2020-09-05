@@ -17,12 +17,20 @@ html, body {
     flex-direction: column;
 }
 
-input {
+input, button, a {
     border: none;
     outline: none;
+    margin: 0;
+    padding: 0;
 }
 
-.root-panel {
+a {
+    text-decoration: none;
+    line-height: normal;
+    color: #000000;
+}
+
+.root__panel {
     position: relative;
     height: 100%;
     width: auto;

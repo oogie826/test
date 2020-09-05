@@ -1,0 +1,28 @@
+.about__section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    border: 1px solid red;
+
+}
+
+.about__article {
+    border: 1px solid red;
+    width: 100%;
+}
+
+.about__desc {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Nanum Gothic', serif;
+    line-height: 1.8rem;
+    color: #525252;
+    h1 {
+        font-size: 3rem;
+    }
+    span {
+        font-size: 1.2rem;
+    }
+}
