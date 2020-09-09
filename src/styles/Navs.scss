@@ -6,7 +6,7 @@
     align-items: center;
     font-size: 1.2rem;
     width: 100%;
-    transition: all 0.5s ease-in-out;
+    transition: all 0.35s ease-in-out;
     z-index: 99;
 }
 .nav__wrapper {
@@ -33,7 +33,8 @@
 
 .top {
     position: relative;
-    background-color: #004ba0;
+    background-color: #004ba0 !important;
+    border-bottom: none !important;
 }
 .scroll-up {
     background-color: #ffffff;

@@ -6,10 +6,10 @@ html, body, #root {
     box-sizing: border-box;
     height: 100%;
     font-family: 'Nanum Gothic', sans-serif;
+    transition: all ease-in-out 0.25s;
 }
 
 .root__main {
-
 }
 
 input, button, a {
@@ -17,6 +17,10 @@ input, button, a {
     outline: none;
     margin: 0;
     padding: 0;
+}
+
+button, a {
+    cursor: pointer;
 }
 
 a {

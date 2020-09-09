@@ -10,7 +10,7 @@ import * as browserUtils from '../utils/browserUtils.ts'
 import Introduction from './pages/Introduction.tsx'
 import Search from './pages/Search.tsx'
 import Navs from './components/Navs.tsx'
-import Dialog from './components/Dialog.tsx'
+import LoginDialog from './components/LoginDialog.tsx'
 
 // styles
 import './styles/App.scss'
@@ -34,6 +34,7 @@ export default function App() {
     }, [])
 
     useEffect(() => {
+        console.log(loginDialogState)
         if (loginDialogState) document.body.style.overflow = 'hidden';
         else document.body.style.overflow = 'auto';
     }, [loginDialogState])
@@ -47,9 +48,7 @@ export default function App() {
                     <Route path='/search' component={() => <Search />} />
                 </Switch>
             </div>
-            <div className='toast'>
-                {loginDialogState ? <Dialog closeDialog={closeDialog} dialogHeader='header' dialogBody={<div>good</div>} /> : ''}
-            </div>
+            { loginDialogState ? <LoginDialog closeDialog={closeDialog} loginDialogState={loginDialogState} /> : ''}
         </>
     )
 }

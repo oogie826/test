@@ -19,14 +19,14 @@ export function scrollNavigation() {
     let prevPos = 0;
     globalThis.addEventListener('scroll', debounce(() => {
         const currentPos = document.documentElement.scrollTop;
-        const showScrollTopPos = 5;
+        const showScrollTopPos = 15;
 
-        if (Math.abs(prevPos - currentPos) <= showScrollTopPos) {
-            document.body.getElementsByClassName('nav__main')[0].classList.remove('scroll-up');
+        if (currentPos < 105) {
             document.body.getElementsByClassName('nav__main')[0].classList.add('top');
+            document.body.getElementsByClassName('nav__main')[0].classList.remove('scroll-down');
             return;
         }
-        if (currentPos < 105) {
+        if (Math.abs(prevPos - currentPos) <= showScrollTopPos) {
             document.body.getElementsByClassName('nav__main')[0].classList.remove('scroll-up');
             document.body.getElementsByClassName('nav__main')[0].classList.remove('scroll-down');
             document.body.getElementsByClassName('nav__main')[0].classList.add('top');
@@ -43,6 +43,6 @@ export function scrollNavigation() {
             document.body.getElementsByClassName('nav__main')[0].classList.add('scroll-up');
         }
         prevPos = currentPos;
-    }, 50))
+    }, 150))
     return;
 }

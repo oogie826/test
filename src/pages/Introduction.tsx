@@ -11,6 +11,7 @@ export default function Introduction() {
                         <h1>더 나은 유치원<br/>킨더가드</h1>
                     </div>
                 </article>
+                
             </section>
             <section className='intro__section'>
                 <article className='intro__article'>
