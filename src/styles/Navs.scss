@@ -3,20 +3,20 @@
     display: block;
     margin: 0;
     padding: 0;
-    width: 100%;
     align-items: center;
     font-size: 1.2rem;
-    height: 10vh;
+    width: 100%;
     transition: all 0.5s ease-in-out;
-    z-index: 999;
+    z-index: 99;
 }
 .nav__wrapper {
     display: flex;
     width: auto;
-    margin: 1rem 4rem 0 4rem;
+    padding: 1rem;
 }
 .nav__title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 300;
     margin: 0;
 }
 .nav__links {
@@ -33,11 +33,12 @@
 
 .top {
     position: relative;
+    background-color: #004ba0;
 }
 .scroll-up {
-    background-color: #a7a7a7;
+    background-color: #ffffff;
+    border-bottom: 1px solid #000000;
 }
 .scroll-down{
     transform: translateY(-10vh);
-    width: 100%;
 }

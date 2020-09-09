@@ -1,5 +1,7 @@
 import React from 'react'
 
+import '../styles/Dialog.scss'
+
 interface Dialog {
     closeDialog: () => void,
     dialogHeader: string,
@@ -13,15 +15,17 @@ export default function Dialog({
 }) {
 
     return (
-        <dialog className='dialog'>
-            <form className='dialog__header'>
-                <div className='dialog__close--btn' onClick={closeDialog}>
-                    <div className='dialog__cross--line'></div>
-                    <div className='dialog__cross--line'></div>
+        <div className='dialog__background'>
+            <dialog className='dialog'>
+                <div className='dialog__header'>
+                    <div className='dialog__close--btn' onClick={closeDialog}>
+                        <div className='dialog__cross--line'></div>
+                        <div className='dialog__cross--line'></div>
+                    </div>
+                    {dialogHeader}
                 </div>
-                {dialogHeader}
-            </form>
-            {dialogBody}
-        </dialog>
+                {dialogBody}
+            </dialog>
+        </div>
     )
 }

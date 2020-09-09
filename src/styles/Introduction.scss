@@ -1,28 +1,34 @@
-.about__section {
+.intro__section {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     width: 100%;
-    border: 1px solid red;
-
 }
 
-.about__article {
-    border: 1px solid red;
+.intro__main {
+    background-color: #004ba0;
+}
+
+.intro__article {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
+    text-align: center;
 }
 
-.about__desc {
+.intro__desc {
     display: flex;
     flex-direction: column;
     font-family: 'Nanum Gothic', serif;
-    line-height: 1.8rem;
-    color: #525252;
+    color: #535353;
     h1 {
         font-size: 3rem;
+        color: #000000;
     }
     span {
         font-size: 1.2rem;
+        line-height: 1.8rem;
     }
 }

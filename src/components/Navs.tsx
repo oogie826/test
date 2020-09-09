@@ -16,9 +16,9 @@ export default function Navs() {
     const openDialog = () => setLoginDialogState(true);
 
     return (
-        <nav className='nav__main'>
+        <nav className='nav__main top'>
             <div className='nav__wrapper'>
-                <h1 className='nav__title'><a href='/'>Kinder Guards</a></h1>
+                <h1 className='nav__title'><a href='/'>Kinder Guard</a></h1>
                 <div className='nav__links'>
                     <Link className='nav__link' to='/search'>
                         <SVG className='svg__icon' name='search_icon' width={20} height={20} color='#000000' />

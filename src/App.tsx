@@ -7,29 +7,22 @@ import { isLoginAtom, loginDialogAtom } from './recoils/global.ts'
 import * as browserUtils from '../utils/browserUtils.ts'
 
 // pages
-import Navs from './components/Navs.tsx'
-import About from './pages/About.tsx'
-import Main from './pages/Main.tsx'
+import Introduction from './pages/Introduction.tsx'
 import Search from './pages/Search.tsx'
+import Navs from './components/Navs.tsx'
 import Dialog from './components/Dialog.tsx'
 
 // styles
 import './styles/App.scss'
 import './styles/Commons.scss'
-import './styles/Dialog.scss'
 
-function renderIndex() {
-    return (
-        <>
-            <Main />
-            <About />
-        </>
-    )
+function initApp() {
+    document.title = 'Kinder Guard';
 }
 
 export default function App() {
 
-    document.title = 'Kinder Guards';
+    initApp();
 
     const [loginDialogState, setLoginDialogState] = useRecoilState(loginDialogAtom);
     const [isLogin, setIsLogin] = useRecoilState(isLoginAtom);
@@ -41,25 +34,21 @@ export default function App() {
     }, [])
 
     useEffect(() => {
-        if (loginDialogState) {
-            browserUtils.createDialogBackground()
-            document.body.style.overflow = 'hidden';
-        }
-        else {
-            browserUtils.removeElementsByClassName('dialog__background')
-            document.body.style.overflow = 'auto';
-        }
+        if (loginDialogState) document.body.style.overflow = 'hidden';
+        else document.body.style.overflow = 'auto';
     }, [loginDialogState])
 
     return (
         <>
             <Navs />
-            <div className='root__panel'>
-                {loginDialogState ? <Dialog closeDialog={closeDialog} dialogHeader='header' dialogBody={<div>good</div>} /> : ''}
+            <div className='root__main'>
                 <Switch>
-                    <Route exact path='/' render={renderIndex} />
+                    <Route exact path='/' component={() => <Introduction />} />
                     <Route path='/search' component={() => <Search />} />
                 </Switch>
+            </div>
+            <div className='toast'>
+                {loginDialogState ? <Dialog closeDialog={closeDialog} dialogHeader='header' dialogBody={<div>good</div>} /> : ''}
             </div>
         </>
     )
