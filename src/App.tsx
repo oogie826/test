@@ -17,12 +17,28 @@ import './styles/App.scss'
 import './styles/Commons.scss'
 
 function initApp() {
+    console.log('App Init');
+    const jsKey = 'ad98ca818bb064b0b2493181da6cae21'
+    const kakaoSDK = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${jsKey}&libraries=services`;
+
     document.title = 'Kinder Guard';
+
+    if (!document.getElementById('kakao-sdk')) {
+        (() => {
+            const script = document.createElement('script');
+            script.id = 'kakao-sdk'
+            script.src = kakaoSDK;
+            script.async = true;
+            document.body.append(script)
+        })()
+    }
 }
 
 export default function App() {
 
-    initApp();
+    useEffect(() => {
+        initApp();
+    }, [])
 
     const [loginDialogState, setLoginDialogState] = useRecoilState(loginDialogAtom);
     const [isLogin, setIsLogin] = useRecoilState(isLoginAtom);
