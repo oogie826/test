@@ -4,7 +4,7 @@
     width: 620px;
     height: 480px;
     background-color: #b4b4b4;
-    border: 1px solid red;
+    box-shadow: 5px 5px 10px #747474;
     z-index: 999;
 }
 
@@ -17,15 +17,16 @@
 }
 
 .left__block {
-    background-color: #5b7295;
+    background-color: #cccccc;
     height: 100%;
     width: 220px;
     flex-basis: 1;
 }
 
-.right__blcok {
-    background-color: #b4b4b4;
+.right__block {
+    background-color: #eeeeee;
     height: 100%;
+    width: 400px;
     flex-basis: 1;
 }
 

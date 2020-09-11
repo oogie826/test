@@ -29,3 +29,12 @@ export function debounce(callback: Function, wait: number) {
         }, wait);
     }
 }
+
+export function hash(str: string) {
+    let hashcode = 0;
+    for (let i = 0; i < str.length; i += 1) {
+        const char = str.charCodeAt(i);
+        hashcode = (Math.imul(31, i) + char) | 0;
+    }
+    return hashcode;
+}

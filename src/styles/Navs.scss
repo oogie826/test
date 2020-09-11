@@ -21,6 +21,8 @@
 }
 .nav__links {
     margin-left: auto;
+    display: flex;
+    align-items: center;
 }
 .nav__link {
     display: inline-block;

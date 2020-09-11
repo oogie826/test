@@ -12,9 +12,17 @@ export default function LoginDialog({ closeDialog, loginDialogState }) {
 
                 </div>
                 <div className='right__block'>
-                    <div onClick={closeDialog}>Close</div>
-                    <div className='ld-header'>
+                    <div className='close__btn__wrapper'>
+                        <div className='close__btn' onClick={closeDialog}>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                    <div className='login__box'>
                         <h3>로그인</h3>
+                        <span>이메일로 로그인 하기</span>
+                        <input type="text" />
+                        <button>로그인</button>
                     </div>
                 </div>
             </div>

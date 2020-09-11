@@ -16,7 +16,7 @@ export default function Introduction() {
             <section className='intro__section'>
                 <article className='intro__article'>
                     <div className='intro__desc'>
-                        <h1>교사가 평가하는<br />아이의 하루</h1>
+                        <h1>교사가 평가한<br />아이의 하루</h1>
                         <span>우리아이가 유치원에서</span>
                         <span>하루를 어떻게 보내고 발달과정은 어떤지</span>
                         <span>교사가 직접 평가한 내용을 확인 할 수 있어요.</span>

@@ -11,13 +11,15 @@ import Introduction from './pages/Introduction.tsx'
 import Search from './pages/Search.tsx'
 import Navs from './components/Navs.tsx'
 import LoginDialog from './components/LoginDialog.tsx'
+import SearchedPlace from './pages/SearchedPlace.tsx'
+import Profile from './pages/Profile.tsx'
 
 // styles
 import './styles/App.scss'
 import './styles/Commons.scss'
 
 function initApp() {
-    console.log('App Init');
+    console.log('%cApp Init', 'color: orange; font-weight: bold;');
     const jsKey = 'ad98ca818bb064b0b2493181da6cae21'
     const kakaoSDK = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${jsKey}&libraries=services`;
 
@@ -46,7 +48,7 @@ export default function App() {
     const closeDialog = () => setLoginDialogState(false);
 
     useEffect(() => {
-        browserUtils.scrollNavigation();
+        browserUtils.scrollNavigation('nav__main');
     }, [])
 
     useEffect(() => {
@@ -62,6 +64,8 @@ export default function App() {
                 <Switch>
                     <Route exact path='/' component={() => <Introduction />} />
                     <Route path='/search' component={() => <Search />} />
+                    <Route path='/@:place_name' component={() => <SearchedPlace />} />
+                    <Route path='/profile' component={() => <Profile />} />
                 </Switch>
             </div>
             { loginDialogState ? <LoginDialog closeDialog={closeDialog} loginDialogState={loginDialogState} /> : ''}
