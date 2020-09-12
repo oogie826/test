@@ -53,3 +53,25 @@
     }
 }
 
+.result-box__list_wrapper {
+    margin-top: 1rem;
+    .result-box__list {
+        list-style: none;
+        margin-bottom: 15px;
+        border-bottom: 1px solid #333333;
+        cursor: pointer;
+    }
+}
+
+#pagination {
+    text-align: center;
+    padding-top: 1rem;
+    
+    .pagination__nums {
+        padding: 10px;
+        font-size: 1.2rem;
+    }
+    .on {
+        color: #33ca4c;
+    }
+}

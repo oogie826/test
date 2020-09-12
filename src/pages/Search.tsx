@@ -42,7 +42,9 @@ export default function Search() {
             if (status === globalThis.kakao.maps.services.Status.OK) {
                 // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
                 // LatLngBounds 객체에 좌표를 추가합니다
-                setDatalist(data)
+
+                //TODO: Unmounted warning
+                setDatalist(data);
                 displayPagination(pagination);
                 let bounds = new globalThis.kakao.maps.LatLngBounds();
 
@@ -58,7 +60,6 @@ export default function Search() {
 
         // 지도에 마커를 표시하는 함수입니다
         function displayMarker(place) {
-
             // 마커를 생성하고 지도에 표시합니다
             let marker = new globalThis.kakao.maps.Marker({
                 map: map,
@@ -87,10 +88,13 @@ export default function Search() {
                 var el = document.createElement('a');
                 el.href = "#";
                 el.innerHTML = i;
-
+                el.classList.add('pagination__nums');
+                
                 if (i === pagination.current) {
-                    el.className = 'on';
-                } else {
+                    el.classList.add('on');
+                } 
+                else {
+                    el.classList.remove('on');
                     el.onclick = (function (i) {
                         return function () {
                             pagination.gotoPage(i);
@@ -104,26 +108,29 @@ export default function Search() {
         }
     }
 
+
     // TODO: Have to do fix unmounted update warning
     useEffect(() => {
         const qs = Object.values(querystring.parse(document.location.search.slice(1))).join('');
+        let isMounted = true;
         if (!query && qs) createKakaoMap(qs);
+
+        return () => { isMounted = false; }
     }, [])
 
     const getFocus = () => ref.current?.focus();
 
     const searchQuery = (ev) => setQuery(ev.target.value);
 
-    const renderPlaceNameList = (datalist) => {
+    const renderPlaceNameList = () => {
         return datalist.map((el, idx) =>
             <li
                 key={idx}
-                className='searched__list'
+                className='result-box__list'
                 onClick={() => histroy.push(`/@${(el.place_name).replace(/\s/g, '')}${hash(el.address_name)}`)}>
                 {el.place_name}
                 {el.address_name}
-            </li>
-        )
+            </li>);
     };
 
     const searchPush = (ev) => {
@@ -148,8 +155,8 @@ export default function Search() {
             </div>
             <div className='result-box'>
                 <div id="map" style={{ width: '500px', height: '400px' }}></div>
-                <div>
-                    {datalist ? renderPlaceNameList(datalist) : ''}
+                <div className='result-box__list_wrapper'>
+                    {renderPlaceNameList()}
                 </div>
                 <div id="pagination"></div>
             </div>
