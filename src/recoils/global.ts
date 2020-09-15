@@ -1,14 +1,12 @@
-import { atom } from 'recoil'
-
-export const isLoginAtom = atom({
-    key: 'isLoginAtom',
-    default: false,
-})
+import { atom, selector } from 'recoil'
 
 export const loginDialogAtom = atom({
     key: 'loginDialogAtom',
-    default: false,
-})
+    default: {
+        renderComp: false,
+        renderCss: false
+    }
+});
 
 export const userInfoAtom = atom({
     key: 'userInfoAtom',

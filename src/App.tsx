@@ -20,7 +20,7 @@ import './styles/App.scss'
 import './styles/Commons.scss'
 
 function initApp() {
-    console.log('%cApp Init', 'color: orange; font-weight: bold;');
+    browserUtils.consoleLog('App Init', {fontWeight: 'bold'});
     const jsKey = 'ad98ca818bb064b0b2493181da6cae21'
     const kakaoSDK = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${jsKey}&libraries=services`;
 
@@ -43,20 +43,23 @@ export default function App() {
         initApp();
     }, [])
 
-    const [loginDialogState, setLoginDialogState] = useRecoilState(loginDialogAtom);
-    const [isLogin, setIsLogin] = useRecoilState(isLoginAtom);
-
-    const closeDialog = () => setLoginDialogState(false);
+    const [isLoginDialogOpen, setIsLoginDialogOpen] = useRecoilState(loginDialogAtom);
+    const closeDialog = () => {
+        setIsLoginDialogOpen({renderComp: true, renderCss: false});
+        setTimeout(() => {
+            setIsLoginDialogOpen({renderCss: false, renderComp: false});
+        }, 500);
+    }
 
     useEffect(() => {
         browserUtils.scrollNavigation('nav__main');
     }, [])
 
     useEffect(() => {
-        console.log(loginDialogState)
-        if (loginDialogState) document.body.style.overflow = 'hidden';
+        browserUtils.consoleLog(`isLoginDialogOpen: ${isLoginDialogOpen.renderComp} ${isLoginDialogOpen.renderCss}`);
+        if (isLoginDialogOpen.renderComp) document.body.style.overflow = 'hidden';
         else document.body.style.overflow = 'auto';
-    }, [loginDialogState])
+    }, [isLoginDialogOpen])
 
     return (
         <>
@@ -70,7 +73,7 @@ export default function App() {
                     <Route path='/test' component={() => <ImportTestData />} />
                 </Switch>
             </div>
-            { loginDialogState ? <LoginDialog closeDialog={closeDialog} loginDialogState={loginDialogState} /> : ''}
+            { isLoginDialogOpen.renderComp ? <LoginDialog closeDialog={closeDialog} isLoginDialogOpen={isLoginDialogOpen} /> : ''}
         </>
     )
 }

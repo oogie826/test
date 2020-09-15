@@ -15,6 +15,18 @@ export function createDialogBackground() {
     return;
 }
 
+export function consoleLog(data: any, {...options}) {
+    const {color, fontWeight} = options;
+    const _emoji = '\u{1F6A7}';
+    const _color = color ? color : 'orange';
+    const _fontWeight = fontWeight ? fontWeight : 'normal';
+
+    console.log(`${_emoji} %c${data}`, 
+        `color: ${_color}; 
+        font-weight: ${_fontWeight};`);
+    return;
+}
+
 export function scrollNavigation(className: string) {
     let prevPos = 0;
     globalThis.addEventListener('scroll', debounce(() => {

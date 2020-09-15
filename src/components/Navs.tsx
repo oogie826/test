@@ -2,7 +2,7 @@ import React from 'react'
 import { useRecoilState } from 'recoil'
 import { Link } from 'react-router-dom'
 
-import { isLoginAtom, loginDialogAtom } from '../recoils/global.ts'
+import { loginDialogAtom } from '../recoils/global.ts'
 
 import SVG from '../components/SVG.tsx'
 
@@ -10,10 +10,9 @@ import '../styles/Navs.scss'
 
 export default function Navs() {
 
-    const [isLogin, setIsLogin] = useRecoilState(isLoginAtom);
     const [loginDialogState, setLoginDialogState] = useRecoilState(loginDialogAtom);
 
-    const openDialog = () => setLoginDialogState(true);
+    const openDialog = () => setLoginDialogState({renderComp: true, renderCss: true});
 
     return (
         <nav className='nav__main top'>
