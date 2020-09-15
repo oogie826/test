@@ -1,17 +1,16 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export default function Profile() {
+
+    // TODO: 등록된 유치원 주소 가져오기 API
+
     return (
         <>
-        <div>
-            유치원 현황
-        </div>
-        <div>
-            우리아이 일과
-        </div>
-        <div>
-            성장 발달 평가 상황
-        </div>
+            {/* TODO: 이 페이지에 회원 정보 노출 */}
+            <div>회원정보</div>
+            {/* TODO: KinderMain 연결 */}
+            <Link to='/test-kinder'>유치원 바로가기</Link>
         </>
     )
 }

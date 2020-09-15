@@ -11,8 +11,9 @@ import Introduction from './pages/Introduction.tsx'
 import Search from './pages/Search.tsx'
 import Navs from './components/Navs.tsx'
 import LoginDialog from './components/LoginDialog.tsx'
-import SearchedPlace from './pages/SearchedPlace.tsx'
+import KinderMain from './pages/kinder_pages/KinderMain.tsx'
 import Profile from './pages/Profile.tsx'
+import ImportTestData from './pages/ImportTestData.tsx'
 
 // styles
 import './styles/App.scss'
@@ -64,8 +65,9 @@ export default function App() {
                 <Switch>
                     <Route exact path='/' component={() => <Introduction />} />
                     <Route path='/search' component={() => <Search />} />
-                    <Route path='/@:place_name' component={() => <SearchedPlace />} />
+                    <Route path='/@:place_name' component={() => <KinderMain />} />
                     <Route path='/profile' component={() => <Profile />} />
+                    <Route path='/test' component={() => <ImportTestData />} />
                 </Switch>
             </div>
             { loginDialogState ? <LoginDialog closeDialog={closeDialog} loginDialogState={loginDialogState} /> : ''}
