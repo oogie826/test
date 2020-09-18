@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react'
+import { useRecoilState } from 'recoil'
+import jwtDecode from 'jwt-decode'
 
 import { isEmpty } from '../../utils/utils.ts'
-import { } from '../recoils/global.ts'
+import { setCookie, getCookie } from '../../utils/browserUtils.ts'
+import { userStateAtom } from '../recoils/global.ts'
 import UserApi from '../../api/UserApi'
 
 import '../styles/LoginDialog.scss'
@@ -21,6 +24,7 @@ export default function LoginDialog({
     });
     const [isVisible, setIsVisible] = useState(true);
     const [cssVisible, setCssVisible] = useState(true);
+    const [userState, setUserState] = useRecoilState(userStateAtom);
 
     useEffect(() => {
         console.log(loginVals)
@@ -33,16 +37,23 @@ export default function LoginDialog({
         return false;
     }
 
-    const callLoginApi = () => {
+    const callLoginApi = async () => {
         if (!hasEmptyValues(loginVals)) {
-            UserApi.login(loginVals).then(res => console.log(res));
+            await UserApi.login(loginVals).then(res => {
+                if (res.status === 200) {
+                    setCookie('access_token', res.data.access_token);
+                    setUserState(jwtDecode(res.data.access_token));
+                }
+            });
+            closeDialog();
         }
         return;
     }
 
-    const callSignUpApi = () => {
+    const callSignUpApi = async () => {
         if (!hasEmptyValues(loginVals)) {
-            UserApi.signUp(loginVals).then(res => console.log(res));
+            await UserApi.signUp(loginVals).then(res => console.log(res));
+            setUserState(jwtDecode(getCookie('access_token')));
         }
         return;
     }

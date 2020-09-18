@@ -1,18 +1,29 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRecoilState } from 'recoil'
 import { Link } from 'react-router-dom'
-
-import { loginDialogAtom } from '../recoils/global.ts'
+import { userStateAtom, loginDialogAtom } from '../recoils/global.ts'
 
 import SVG from '../components/SVG.tsx'
+import { deleteCookie } from '../../utils/browserUtils.ts'
+import { isEmpty } from '../../utils/utils.ts'
 
 import '../styles/Navs.scss'
 
 export default function Navs() {
 
     const [loginDialogState, setLoginDialogState] = useRecoilState(loginDialogAtom);
+    const [userState, setUserState] = useRecoilState(userStateAtom);
 
     const openDialog = () => setLoginDialogState({renderComp: true, renderCss: true});
+    const logout = () => {
+        setUserState({});
+        deleteCookie('access_token');
+        globalThis.location.replace('/');
+    }
+
+    useEffect(() => {
+        console.log(userState)
+    })
 
     return (
         <nav className='nav__main top'>
@@ -25,7 +36,7 @@ export default function Navs() {
                     <Link className='nav__link' to='/profile'>
                         <SVG className='svg__icon' name='login_icon' width={27} height={27} viewBox='0 0 50 50' color='#000000' />
                     </Link>
-                    <button className='login-btn btn' onClick={openDialog}>로그인</button>
+                    <button className='login-btn btn' onClick={() => !userState.username ? openDialog() : logout()}>{!userState.username ? '로그인' : '로그아웃'}</button>
                 </div>
             </div>
         </nav>

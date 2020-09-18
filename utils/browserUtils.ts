@@ -27,6 +27,24 @@ export function consoleLog(data: any, {...options}) {
     return;
 }
 
+export function setCookie(name: string, value: any, exprires: number = 1) {
+    const now = new Date();
+    const exp = new Date(now.valueOf() + exprires * 24 * 60 * 60 * 1000);
+    document.cookie = `${name}=${value};expires=${exp};path='/';`;
+    return;
+}
+
+export function getCookie(name: string) {
+    const val = document.cookie.match('(^|;)?' + name + '=([^;]*)(;|$)');
+    return val ? val[2] : null;
+}
+
+export function deleteCookie(name: string) {
+    // 쿠키를 삭제하려면 해당 날짜 이전으로 설정하면 됨.
+    document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    return;
+}
+
 export function scrollNavigation(className: string) {
     let prevPos = 0;
     globalThis.addEventListener('scroll', debounce(() => {

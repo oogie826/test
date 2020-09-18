@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react'
 import { useRecoilState } from 'recoil'
 import { Route, Switch } from 'react-router-dom'
+import jwtDecode from 'jwt-decode'
 
 // custom
-import { isLoginAtom, loginDialogAtom } from './recoils/global.ts'
+import { userStateAtom, loginDialogAtom } from './recoils/global.ts'
 import * as browserUtils from '../utils/browserUtils.ts'
+import * as utils from '../utils/utils.ts'
 
 // pages
 import Introduction from './pages/Introduction.tsx'
@@ -44,6 +46,8 @@ export default function App() {
     }, [])
 
     const [isLoginDialogOpen, setIsLoginDialogOpen] = useRecoilState(loginDialogAtom);
+    const [userState, setUserState] = useRecoilState(userStateAtom);
+
     const closeDialog = () => {
         setIsLoginDialogOpen({renderComp: true, renderCss: false});
         setTimeout(() => {
@@ -60,6 +64,15 @@ export default function App() {
         if (isLoginDialogOpen.renderComp) document.body.style.overflow = 'hidden';
         else document.body.style.overflow = 'auto';
     }, [isLoginDialogOpen])
+
+    useEffect(() => {
+        if (utils.isEmpty(Object.values(userState).filter(el => el !== ''))) {
+            const token = browserUtils.getCookie('access_token');
+            if (token) {
+                setUserState(jwtDecode(token))
+            }
+        }
+    }, [userState])
 
     return (
         <>

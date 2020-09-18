@@ -8,13 +8,10 @@ export const loginDialogAtom = atom({
     }
 });
 
-export const userInfoAtom = atom({
-    key: 'userInfoAtom',
+export const userStateAtom = atom({
+    key: 'userStateAtom',
     default: {
         username: '',
-        fullname: '',
-        belonging: '',
-        kindergarten_name: '',
         auth: ''
         /*
             auth: 'guest', 'teacher', 'parent' 

@@ -38,18 +38,21 @@ exports.login = async function(req, resp, next) {
 
         await User.findOne(query, (err, res) => {
             console.log(res)
+            if (res === null) {
+                resp.status(404).json({msg: "Can't find"});
+                return
+            }
             const token = jwt.sign({
                 username: res.username,
                 auth: res.auth
             }, 
             JWT_SECRET_KEY,
             {
-                expiresIn: '30m'
+                expiresIn: '1h'
             });
 
             resp.status(200).json({
-                access_
-                token: token
+                access_token: token
             })
         })
         mongoConn.disconn();
