@@ -6,4 +6,8 @@ router.post('/signup', (req, resp, next) => {
     Controller.signUp(req, resp, next);
 })
 
+router.post('/login', (req, resp, next) => {
+    Controller.login(req, resp, next);
+})
+
 module.exports = router;

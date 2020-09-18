@@ -1,7 +1,7 @@
 import AxoisApiConfig from './AxiosApiConfig';
 
 export default {
-    Login(data) {
+    login(data) {
         return AxoisApiConfig({
             url: '/users/login',
             method: 'post',
@@ -9,7 +9,7 @@ export default {
         })
     },
 
-    Login(data) {
+    signUp(data) {
         return AxoisApiConfig({
             url: '/users/signup',
             method: 'post',

@@ -16,8 +16,8 @@ export default function LoginDialog({
     isLoginDialogOpen }: LoginDialogProps) {
 
     const [loginVals, setLoginVals] = useState({
-        id: '',
-        pwd: ''
+        username: '',
+        password: ''
     });
     const [isVisible, setIsVisible] = useState(true);
     const [cssVisible, setCssVisible] = useState(true);
@@ -26,19 +26,23 @@ export default function LoginDialog({
         console.log(loginVals)
     }, [loginVals])
 
-    // TODO: have to server connection
+    const hasEmptyValues = (data) => {
+        for (let value of Object.values(data)) {
+            if (isEmpty(value)) return true;
+        }
+        return false;
+    }
+
     const callLoginApi = () => {
-        if (!isEmpty(loginVals.id) && !isEmpty(loginVals.pwd)) {
-            const response = UserApi.Login(loginVals);
-            console.log(response);
+        if (!hasEmptyValues(loginVals)) {
+            UserApi.login(loginVals).then(res => console.log(res));
         }
         return;
     }
 
     const callSignUpApi = () => {
-        if (!isEmpty(loginVals.id) && !isEmpty(loginVals.pwd)) {
-            const response = UserApi.SignUp(loginVals);
-            console.log(response);
+        if (!hasEmptyValues(loginVals)) {
+            UserApi.signUp(loginVals).then(res => console.log(res));
         }
         return;
     }
@@ -51,19 +55,16 @@ export default function LoginDialog({
         })
     };
 
-    const toSignup = () => {
-        setCssVisible(false)
+    const toggleSingUpLogin = () => {
+        const inputVals = document.getElementsByClassName('login__dialog_input');
+        setCssVisible(!isVisible)
         setTimeout(() => {
-            setIsVisible(false)
+            for (let values of Object.values(inputVals)) {
+                values.value = '';
+            }
+            setIsVisible(!isVisible)
         }, 500);
-    };
-
-    const toLogin = () => {
-        setCssVisible(true)
-        setTimeout(() => {
-            setIsVisible(true)
-        }, 500);
-    };
+    }
 
     return (
         <div className='login__dialog_background'>
@@ -74,7 +75,7 @@ export default function LoginDialog({
 
                 <div className='right__block'>
                     <div className='close__btn__wrapper'>
-                        <div className={`back__btn ${isVisible ? 'hide' : 'show'}`} onClick={toLogin}>
+                        <div className={`back__btn ${isVisible ? 'hide' : 'show'}`} onClick={toggleSingUpLogin}>
                             <span></span>
                             <span></span>
                             <span></span>
@@ -89,8 +90,6 @@ export default function LoginDialog({
                             onChange={onChangeHandler}
                             onClick={callLoginApi}
                             className={`login__dialog_form-wrapper ${cssVisible ? 'show' : 'hide'}`}
-                            id='id'
-                            pwd='pwd'
                             title='로그인'
                         />
                         :
@@ -98,13 +97,13 @@ export default function LoginDialog({
                             onChange={onChangeHandler}
                             onClick={callSignUpApi}
                             className={`login__dialog_form-wrapper ${cssVisible ? 'hide' : 'show'} `}
-                            id='id'
-                            pwd='pwd'
                             title='회원가입'
                         />
                     }
                     <div className='login__dialog_footer'>
-                        <span className='login__dialog_signup-btn btn' onClick={toSignup}>회원가입하기</span>
+                        <span className='login__dialog_signup-btn btn' onClick={toggleSingUpLogin}>
+                            {isVisible ? '회원가입' : '로그인'}
+                        </span>
                     </div>
                 </div>
             </div>
@@ -116,8 +115,6 @@ function LoginSignupForm({
     onChange,
     onClick,
     className,
-    id,
-    pwd,
     title,
 }) {
 
@@ -125,8 +122,8 @@ function LoginSignupForm({
         <>
             <div className={className}>
                 <h3>{title}</h3>
-                <input className='login__dialog_input' onChange={onChange} id={id} name={id} type="text" placeholder='YOUR@EMAIL.COM' />
-                <input className='login__dialog_input' onChange={onChange} id={pwd} name={pwd} type="password" placeholder='PASSWORD' />
+                <input className='login__dialog_input' onChange={onChange} id='username' name='username' type="text" placeholder='Username' />
+                <input className='login__dialog_input' onChange={onChange} id='password' name='password' type="password" placeholder='Password' />
                 <button className='btn' onClick={onClick}>{title}</button>
             </div>
         </>
