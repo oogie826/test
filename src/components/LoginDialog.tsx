@@ -11,17 +11,21 @@ import '../styles/LoginDialog.scss'
 
 interface LoginDialogProps {
     closeDialog: () => void,
-    isLoginDialogOpen: boolean
+    isLoginDialogOpen: boolean,
+    setIsLoginDialogOpen: () => void
 }
 
-export default function LoginDialog({ 
-    closeDialog, 
-    isLoginDialogOpen }: LoginDialogProps) {
+export default function LoginDialog({
+    closeDialog,
+    isLoginDialogOpen,
+    setIsLoginDialogOpen }: LoginDialogProps) {
 
     const [loginVals, setLoginVals] = useState({
         username: '',
         password: ''
     });
+
+    const { isComponentVisible, isStyleVisible } = isLoginDialogOpen
     const [isVisible, setIsVisible] = useState(true);
     const [cssVisible, setCssVisible] = useState(true);
     const [userState, setUserState] = useRecoilState(userStateAtom);
@@ -29,6 +33,10 @@ export default function LoginDialog({
     useEffect(() => {
         console.log(loginVals)
     }, [loginVals])
+
+    useEffect(() => {
+        console.log(isLoginDialogOpen)
+    })
 
     const hasEmptyValues = (data) => {
         for (let value of Object.values(data)) {
@@ -68,7 +76,7 @@ export default function LoginDialog({
 
     const toggleSingUpLogin = () => {
         const inputVals = document.getElementsByClassName('login__dialog_input');
-        setCssVisible(!isVisible)
+        setIsLoginDialogOpen({...isLoginDialogOpen, isComponentVisible: !isComponentVisible})
         setTimeout(() => {
             for (let values of Object.values(inputVals)) {
                 values.value = '';
@@ -79,14 +87,14 @@ export default function LoginDialog({
 
     return (
         <div className='login__dialog_background'>
-            <div className={`login__dialog ${isLoginDialogOpen.renderCss ? 'toast' : 'untoast'}`}>
+            <div className={`login__dialog ${isStyleVisible ? 'toast' : 'untoast'}`}>
                 <div className='left__block'>
                     <h1>환영합니다!</h1>
                 </div>
 
                 <div className='right__block'>
                     <div className='close__btn__wrapper'>
-                        <div className={`back__btn ${isVisible ? 'hide' : 'show'}`} onClick={toggleSingUpLogin}>
+                        <div className={`back__btn ${isComponentVisible ? 'hide' : 'show'}`} onClick={toggleSingUpLogin}>
                             <span></span>
                             <span></span>
                             <span></span>
@@ -96,24 +104,24 @@ export default function LoginDialog({
                             <span></span>
                         </div>
                     </div>
-                    {isVisible ?
+                    {isComponentVisible ?
                         <LoginSignupForm
                             onChange={onChangeHandler}
                             onClick={callLoginApi}
-                            className={`login__dialog_form-wrapper ${cssVisible ? 'show' : 'hide'}`}
+                            className={`login__dialog_form-wrapper ${isStyleVisible ? 'show' : 'hide'}`}
                             title='로그인'
                         />
                         :
                         <LoginSignupForm
                             onChange={onChangeHandler}
                             onClick={callSignUpApi}
-                            className={`login__dialog_form-wrapper ${cssVisible ? 'hide' : 'show'} `}
+                            className={`login__dialog_form-wrapper ${isStyleVisible ? 'hide' : 'show'} `}
                             title='회원가입'
                         />
                     }
                     <div className='login__dialog_footer'>
                         <span className='login__dialog_signup-btn btn' onClick={toggleSingUpLogin}>
-                            {isVisible ? '회원가입' : '로그인'}
+                            {isComponentVisible ? '회원가입' : '로그인'}
                         </span>
                     </div>
                 </div>

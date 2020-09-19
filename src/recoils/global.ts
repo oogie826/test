@@ -1,10 +1,10 @@
-import { atom, selector } from 'recoil'
+import { atom, RecoilState, selector } from 'recoil'
 
 export const loginDialogAtom = atom({
     key: 'loginDialogAtom',
     default: {
-        renderComp: false,
-        renderCss: false
+        isComponentVisible: false,
+        isStyleVisible: false
     }
 });
 

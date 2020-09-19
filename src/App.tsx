@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRecoilState } from 'recoil'
 import { Route, Switch } from 'react-router-dom'
 import jwtDecode from 'jwt-decode'
@@ -49,19 +49,19 @@ export default function App() {
     const [userState, setUserState] = useRecoilState(userStateAtom);
 
     const closeDialog = () => {
-        setIsLoginDialogOpen({renderComp: true, renderCss: false});
+        setIsLoginDialogOpen({isComponentVisible: true, isStyleVisible: false});
         setTimeout(() => {
-            setIsLoginDialogOpen({renderCss: false, renderComp: false});
+            setIsLoginDialogOpen({isComponentVisible: false, isStyleVisible: false});
         }, 500);
-    }
+    };
 
     useEffect(() => {
         browserUtils.scrollNavigation('nav__main');
     }, [])
 
     useEffect(() => {
-        browserUtils.consoleLog(`isLoginDialogOpen: ${isLoginDialogOpen.renderComp} ${isLoginDialogOpen.renderCss}`);
-        if (isLoginDialogOpen.renderComp) document.body.style.overflow = 'hidden';
+        browserUtils.consoleLog(`isLoginDialogOpen: ${isLoginDialogOpen.isComponentVisible} ${isLoginDialogOpen.isStyleVisible}`);
+        if (isLoginDialogOpen.isComponentVisible) document.body.style.overflow = 'hidden';
         else document.body.style.overflow = 'auto';
     }, [isLoginDialogOpen])
 
@@ -86,7 +86,15 @@ export default function App() {
                     <Route path='/test' component={() => <ImportTestData />} />
                 </Switch>
             </div>
-            { isLoginDialogOpen.renderComp ? <LoginDialog closeDialog={closeDialog} isLoginDialogOpen={isLoginDialogOpen} /> : ''}
+            { isLoginDialogOpen.isComponentVisible ? 
+                <LoginDialog 
+                    closeDialog={closeDialog} 
+                    isLoginDialogOpen={isLoginDialogOpen} 
+                    setIsLoginDialogOpen={setIsLoginDialogOpen}
+                /> 
+                : 
+                null
+            }
         </>
     )
 }

@@ -75,7 +75,7 @@ export default function Search() {
         }
 
         function displayPagination(pagination) {
-            var paginationEl = document.getElementById('pagination'),
+            let paginationEl = document.getElementById('pagination'),
                 fragment = document.createDocumentFragment(),
                 i;
 
@@ -85,7 +85,7 @@ export default function Search() {
             }
 
             for (i = 1; i <= pagination.last; i++) {
-                var el = document.createElement('a');
+                let el = document.createElement('a');
                 el.href = "#";
                 el.innerHTML = i;
                 el.classList.add('pagination__nums');
