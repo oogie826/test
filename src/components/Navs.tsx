@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { useRecoilState } from 'recoil'
 import { Link } from 'react-router-dom'
 import { userStateAtom, loginDialogAtom } from '../recoils/global.ts'
@@ -8,6 +8,22 @@ import { deleteCookie } from '../../utils/browserUtils.ts'
 import { isEmpty } from '../../utils/utils.ts'
 
 import '../styles/Navs.scss'
+import '../styles/ProfileNav.scss'
+
+function useOutsideClick(ref, callback) {
+    useEffect(() => {
+        function clickOutside(ev) {
+            if (ref.current && !ref.current.contains(ev.target)) {
+                callback();
+            }
+        }
+        document.addEventListener('click', clickOutside);
+
+        return () => {
+            document.removeEventListener('click', clickOutside);
+        };
+    }, [ref])
+}
 
 export default function Navs() {
 
@@ -19,16 +35,19 @@ export default function Navs() {
         isStyleVisible: false,
     });
 
-    const openDialog = () => setLoginDialogState({isComponentVisible: true, isStyleVisible: true});
+    const openDialog = () => setLoginDialogState({ isComponentVisible: true, isStyleVisible: true });
 
     const openProfileNav = () => {
-
-        setProfileNavState({isComponentVisible: true, isStyleVisible: true});
+        setProfileNavState({ isComponentVisible: true, isStyleVisible: true });
+        setTimeout(() => {
+            document.getElementById('profile-nav__container')?.focus();
+        }, 0);
+        return;
     }
 
     const closeProfileNav = () => {
-
-        setProfileNavState({isComponentVisible: false, isStyleVisible: false});
+        setProfileNavState({ isComponentVisible: false, isStyleVisible: false });
+        return;
     }
 
     const logout = () => {
@@ -39,6 +58,7 @@ export default function Navs() {
 
     useEffect(() => {
         console.log(userState)
+        console.log(profileNavState)
     })
 
     return (
@@ -49,25 +69,26 @@ export default function Navs() {
                     <Link className='nav__link' to='/search'>
                         <SVG className='svg__icon' name='search_icon' width={27} height={27} color='#000000' />
                     </Link>
-                    {/* <Link className='nav__link' to='/profile'>
-                        <SVG className='svg__icon' name='login_icon' width={27} height={27} viewBox='0 0 50 50' color='#000000' />
-                    </Link> */}
-                    {userState.username ? 
-                        (<a onClick={openProfileNav}><SVG className='svg__icon' name='user_icon' width={28} height={28} viewBox='0 0 478 478' /></a>)
-                        : 
+                    {userState.username ?
+                        <a onClick={openProfileNav}><SVG className='svg__icon' name='user_icon' width={28} height={28} viewBox='0 0 478 478' /></a>
+                        :
                         <button className='login-btn btn' onClick={openDialog}>로그인</button>
                     }
-                    {profileNavState.isComponentVisible ? <ProfileNav logout={logout} /> : null}
+                    {profileNavState.isComponentVisible ? <ProfileNav closeProfileNav={closeProfileNav} logout={logout} /> : null}
                 </div>
             </div>
         </nav>
     )
 }
 
-function ProfileNav({logout}) {
+function ProfileNav({ logout, closeProfileNav }) {
+
+    const ref = useRef(null);
+    useOutsideClick(ref, closeProfileNav);
+
     return (
-        <div className='profile__div_nav'>
-            <div className='profile__div_nav-wrapper'>
+        <div tabIndex={1} ref={ref} id='profile-nav__container' className='profile-nav__container'>
+            <div className='profile-nav__wrapper'>
                 <div>
                     <button onClick={logout}>로그아웃</button>
                 </div>

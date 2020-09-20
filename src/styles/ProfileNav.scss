@@ -1,0 +1,11 @@
+.profile-nav__container {
+    position: fixed;
+    width: 300px;
+    top: 10.5vh;
+    right: 1vw;
+    background-color: #ffffff;
+
+    &:focus {
+        //outline: none;
+    }
+}
