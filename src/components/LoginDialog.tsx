@@ -50,13 +50,13 @@ export default function LoginDialog({
 
     const callLoginApi = async () => {
         if (!hasEmptyValues(loginVals)) {
+            closeDialog();
             await UserApi.login(loginVals).then(res => {
                 if (res.status === 200) {
                     setCookie('access_token', res.data.access_token);
                     setUserState(jwtDecode(res.data.access_token));
                 }
             });
-            closeDialog();
         }
         return;
     }
