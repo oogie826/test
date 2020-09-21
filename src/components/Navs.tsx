@@ -56,11 +56,6 @@ export default function Navs() {
         globalThis.location.replace('/');
     };
 
-    useEffect(() => {
-        console.log(userState)
-        console.log(profileNavState)
-    })
-
     return (
         <nav className='nav__main top'>
             <div className='nav__wrapper'>
@@ -70,7 +65,7 @@ export default function Navs() {
                         <SVG className='svg__icon' name='search_icon' width={27} height={27} color='#000000' />
                     </Link>
                     {userState.username ?
-                        <a onClick={openProfileNav}><SVG className='svg__icon' name='user_icon' width={28} height={28} viewBox='0 0 478 478' /></a>
+                        <a className={`nav__link ${profileNavState.isComponentVisible ? 'activate' : 'deactivate'}`} onClick={openProfileNav}><SVG className='svg__icon' name='user_icon' width={28} height={28} viewBox='0 0 478 478' /></a>
                         :
                         <button className='login-btn btn' onClick={openDialog}>로그인</button>
                     }
@@ -90,12 +85,19 @@ function ProfileNav({ logout, closeProfileNav }) {
         <div tabIndex={1} ref={ref} id='profile-nav__container' className='profile-nav__container'>
             <div className='profile-nav__wrapper'>
                 <div>
-                    <button onClick={logout}>로그아웃</button>
+                    <div>
+                        <button onClick={logout}>로그아웃</button>
+                    </div>
                 </div>
                 <div>
-                    <Link className='nav__link' to='/profile'>
-                        프로필로 이동하기
+                    <div>
+                        <Link className='profile-nav__link' to='/profile'>
+                            프로필로 이동하기
                     </Link>
+                        <Link className='profile-nav__link' to='/'>
+                            유치원 이동하기
+                    </Link>
+                    </div>
                 </div>
             </div>
         </div>

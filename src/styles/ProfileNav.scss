@@ -4,8 +4,9 @@
     top: 10.5vh;
     right: 1vw;
     background-color: #ffffff;
+    box-shadow: 2px 2px 4px #000000;
 
     &:focus {
-        //outline: none;
+        outline: none;
     }
 }

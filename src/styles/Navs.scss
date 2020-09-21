@@ -23,15 +23,31 @@
     margin-left: auto;
     display: flex;
     align-items: center;
+
+    .nav__link {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 45px;
+        margin: 0 10px 0 0;
+        text-decoration: none;
+
+        &:hover {
+            background-color: #acacac2a;
+            border-radius: 50%;
+        }
+
+        .svg__icon {
+            margin: 0 10px 0 10px;
+        }
+    }
+
+    .activate {
+        background-color: #949494b7;
+        border-radius: 50%;
+    }
 }
-.nav__link {
-    display: inline-block;
-    text-decoration: none;
-    margin: 0 10px 0 0;
-}
-.svg__icon {
-    margin: 0 10px 0 10px
-}
+
 
 .top {
     position: relative;

@@ -1,0 +1,29 @@
+.cardbox__container {
+    display: block;
+    width: 400px;
+    height: 280px;
+    padding: 20px;
+    border: 1px solid #333333;
+
+    .cardbox__wrapper {
+        display: flex;
+        height: 280px;
+        flex-direction: column;
+        border: 1px solid green;
+    }
+}
+.cardbox__header {
+    border: 1px slid blue;
+    .cardbox__title {
+
+    }
+}
+
+.cardbox__content {
+    border: 1px solid red;
+}
+
+.cardbox__footer {
+    position: relative;
+    border: 1px solid green;
+}

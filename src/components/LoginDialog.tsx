@@ -11,8 +11,12 @@ import '../styles/LoginDialog.scss'
 
 interface LoginDialogProps {
     closeDialog: () => void,
-    isLoginDialogOpen: boolean,
+    isLoginDialogOpen: isLoginObjProps,
     setIsLoginDialogOpen: () => void
+}
+
+interface isLoginObjProps {
+    [key: string]: boolean
 }
 
 export default function LoginDialog({
@@ -26,8 +30,7 @@ export default function LoginDialog({
     });
 
     const { isComponentVisible, isStyleVisible } = isLoginDialogOpen
-    const [isVisible, setIsVisible] = useState(true);
-    const [cssVisible, setCssVisible] = useState(true);
+    const [toggle, setToggle] = useState({comp: true, style: true});
     const [userState, setUserState] = useRecoilState(userStateAtom);
 
     useEffect(() => {
@@ -76,12 +79,12 @@ export default function LoginDialog({
 
     const toggleSingUpLogin = () => {
         const inputVals = document.getElementsByClassName('login__dialog_input');
-        setIsLoginDialogOpen({...isLoginDialogOpen, isComponentVisible: !isComponentVisible})
+        setToggle({comp: toggle.comp, style: !toggle.style});
         setTimeout(() => {
             for (let values of Object.values(inputVals)) {
                 values.value = '';
             }
-            setIsVisible(!isVisible)
+            setToggle({comp: !toggle.comp, style: !toggle.style});
         }, 500);
     }
 
@@ -94,7 +97,7 @@ export default function LoginDialog({
 
                 <div className='right__block'>
                     <div className='close__btn__wrapper'>
-                        <div className={`back__btn ${isComponentVisible ? 'hide' : 'show'}`} onClick={toggleSingUpLogin}>
+                        <div className={`back__btn ${toggle.comp ? 'hide' : 'show'}`} onClick={toggleSingUpLogin}>
                             <span></span>
                             <span></span>
                             <span></span>
@@ -104,24 +107,24 @@ export default function LoginDialog({
                             <span></span>
                         </div>
                     </div>
-                    {isComponentVisible ?
+                    {toggle.comp ?
                         <LoginSignupForm
                             onChange={onChangeHandler}
                             onClick={callLoginApi}
-                            className={`login__dialog_form-wrapper ${isStyleVisible ? 'show' : 'hide'}`}
+                            className={`login__dialog_form-wrapper ${toggle.style ? 'show' : 'hide'}`}
                             title='로그인'
                         />
                         :
                         <LoginSignupForm
                             onChange={onChangeHandler}
                             onClick={callSignUpApi}
-                            className={`login__dialog_form-wrapper ${isStyleVisible ? 'hide' : 'show'} `}
+                            className={`login__dialog_form-wrapper ${toggle.style ? 'hide' : 'show'} `}
                             title='회원가입'
                         />
                     }
                     <div className='login__dialog_footer'>
                         <span className='login__dialog_signup-btn btn' onClick={toggleSingUpLogin}>
-                            {isComponentVisible ? '회원가입' : '로그인'}
+                            {toggle.comp ? '회원가입' : '로그인'}
                         </span>
                     </div>
                 </div>
