@@ -16,7 +16,8 @@ export default function ImportTestData() {
 
     return (
         <>
-            <input type='text' onChange={onChangeHandler}/>
+            <input type='text' id='name' name='name' onChange={onChangeHandler}/>
+            <input type='text' id='address' name='address' onChange={onChangeHandler}/>
             <button onClick={sendTestData}>Confirm</button>
         </>
     )

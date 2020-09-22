@@ -8,13 +8,14 @@ export const loginDialogAtom = atom({
     }
 });
 
+// 사용자 정보 및 권한
 export const userStateAtom = atom({
     key: 'userStateAtom',
     default: {
         username: '',
         auth: ''
         /*
-            auth: 'guest', 'teacher', 'parent' 
+            auth: 'guest', 'teacher', 'parent', 'director'
         */
     }
 })

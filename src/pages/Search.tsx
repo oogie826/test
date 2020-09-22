@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom'
 import querystring from 'querystring'
 
 import SVG from '../components/SVG.tsx'
+
 import { hash } from '../../utils/utils.ts'
 
 import '../styles/Search.scss'
@@ -17,12 +18,11 @@ export default function Search() {
     const [datalist, setDatalist] = useState([]);
 
     function createKakaoMap(query: string) {
-        const mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-            mapOption = {
-                center: new globalThis.kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-                level: 3 // 지도의 확대 레벨
-            };
-
+        const mapContainer = document.getElementById('map') // 지도를 표시할 div 
+        const mapOption = {
+            center: new globalThis.kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+            level: 3 // 지도의 확대 레벨
+        };
         // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
         const map = new globalThis.kakao.maps.Map(mapContainer, mapOption);
         searchKakaoMap(query, map);
@@ -89,10 +89,10 @@ export default function Search() {
                 el.href = "#";
                 el.innerHTML = i;
                 el.classList.add('pagination__nums');
-                
+
                 if (i === pagination.current) {
                     el.classList.add('on');
-                } 
+                }
                 else {
                     el.classList.remove('on');
                     el.onclick = (function (i) {
@@ -112,32 +112,32 @@ export default function Search() {
     // TODO: Have to do fix unmounted update warning
     useEffect(() => {
         const qs = Object.values(querystring.parse(document.location.search.slice(1))).join('');
-        let isMounted = true;
         if (!query && qs) createKakaoMap(qs);
-
-        return () => { isMounted = false; }
     }, [])
 
     const getFocus = () => ref.current?.focus();
-
     const searchQuery = (ev) => setQuery(ev.target.value);
+    const searchPush = (ev) => {
+        if (ev.key === 'Enter') {
+            histroy.push(`/search?q=${query}`);
+            createKakaoMap(query);
+        }
+    };
+
+    const linkTo = (placeName, addressName) => {
+        histroy.push(`/@${(placeName).replace(/\s/g, '')}${hash(addressName)}`, { place_name: placeName, address_name: addressName });
+        return;
+    };
 
     const renderPlaceNameList = () => {
         return datalist.map((el, idx) =>
             <li
                 key={idx}
                 className='result-box__list'
-                onClick={() => histroy.push(`/@${(el.place_name).replace(/\s/g, '')}${hash(el.address_name)}`)}>
+                onClick={() => linkTo(el.place_name, el.address_name)} >
                 {el.place_name}
                 {el.address_name}
             </li>);
-    };
-
-    const searchPush = (ev) => {
-        if (ev.key === 'Enter') {
-            histroy.push(`/search?q=${query}`);
-            createKakaoMap(query);
-        }
     };
 
     return (

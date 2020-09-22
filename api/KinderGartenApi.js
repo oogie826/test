@@ -1,18 +1,19 @@
 import AxoisApiConfig from './AxiosApiConfig';
 
 export default {
-    EstimateKindergarten(data) {
+    enrollKindergarten(data) {
         return AxoisApiConfig({
-            url: '/kindergarten/estimate/:kindergarten_name',
+            url: '/kindergartens/enroll-kindergarten',
             method: 'post',
             data: data
         })
     },
 
-    GetKindergartenInfo() {
+    getKindergartenInfo(data) {
         return AxoisApiConfig({
-            url: '/kindergarten/estimate/:kindergarten_name',
-            method: 'get',
+            url: '/kindergartens/get-info',
+            method: 'post',
+            data: data
         })
     }
 }

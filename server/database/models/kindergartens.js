@@ -9,7 +9,7 @@ const dailyWorkSchema = new mongoose.Schema({
 
 const kinderGartenSchema = new mongoose.Schema({
     kindergarten_name: { type: String, required: true },
-    location: { type: String, required: true },
+    address_name: { type: String, required: true },
     reviews: [reviewSchema],
     daily_work: [dailyWorkSchema]
 });

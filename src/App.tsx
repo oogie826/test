@@ -15,7 +15,6 @@ import Navs from './components/Navs.tsx'
 import LoginDialog from './components/LoginDialog.tsx'
 import KinderMain from './pages/kinder_pages/KinderMain.tsx'
 import Profile from './pages/Profile.tsx'
-import ImportTestData from './pages/ImportTestData.tsx'
 import Footer from './components/Footer.tsx'
 
 // styles
@@ -39,6 +38,7 @@ function initApp() {
         })()
     }
 }
+
 
 export default function App() {
 
@@ -75,6 +75,7 @@ export default function App() {
         }
     }, [userState])
 
+    // TODO: Login 시에만 접근 가능하도록 라우팅
     return (
         <>
             <Navs />

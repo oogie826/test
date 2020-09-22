@@ -1,7 +1,7 @@
 const mongoConn = require('../../database/mongoConn');
 const Kindergarten = require('../../database/models/kindergartens');
 
-exports.inputData = async function(req, resp, next) {
+exports.enrollKindergarten = async function(req, resp, next) {
     try {
         const updateQuery = {
             kindergarten_name: req.body.val,
@@ -22,6 +22,25 @@ exports.inputData = async function(req, resp, next) {
             })
             mongoConn.disconn();
         });
+    }
+    catch (err) {
+        throw err;
+    }
+    return;
+}
+
+exports.getKindergartenInfo = async function (req, resp, next) {
+    try {
+        console.log(req.body)
+        const query = {
+            kindergarten_name: req.body.kindergarten_name,
+            address_name: req.body.address_name
+        };
+
+        mongoConn.conn();
+        const result = await Kindergarten.find(query);
+        console.log(result)
+        mongoConn.disconn();
     }
     catch (err) {
         throw err;
