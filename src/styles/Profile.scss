@@ -1,0 +1,14 @@
+.profile__container {
+    display: flex;
+    min-height: 100vh;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 2rem;
+    background-color: #f0f0f0;
+}
+
+.column {
+    display: block;
+    height: 100%;
+}

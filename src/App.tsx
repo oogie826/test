@@ -16,6 +16,7 @@ import LoginDialog from './components/LoginDialog.tsx'
 import KinderMain from './pages/kinder_pages/KinderMain.tsx'
 import Profile from './pages/Profile.tsx'
 import ImportTestData from './pages/ImportTestData.tsx'
+import Footer from './components/Footer.tsx'
 
 // styles
 import './styles/App.scss'
@@ -53,7 +54,7 @@ export default function App() {
         setTimeout(() => {
             setIsLoginDialogOpen({isComponentVisible: false, isStyleVisible: false});
         }, 500);
-    };
+    }
 
     useEffect(() => {
         browserUtils.scrollNavigation('nav__main');
@@ -95,6 +96,7 @@ export default function App() {
                 : 
                 null
             }
+            <Footer />
         </>
     )
 }

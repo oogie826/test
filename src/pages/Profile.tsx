@@ -5,6 +5,8 @@ import { useRecoilState } from 'recoil'
 import { userStateAtom } from '../recoils/global.ts'
 import CardBox from '../components/CardBox.tsx'
 
+import '../styles/Profile.scss'
+
 export default function Profile() {
 
     const [userState, setUserState] = useRecoilState(userStateAtom);
@@ -13,8 +15,12 @@ export default function Profile() {
         if (userState) {
             return (
                 <>
-                    <div>{userState.username}</div>
-                    <div>{userState.auth}</div>
+                    <dl className='data-sheet'>
+                        <dt>아이디</dt>
+                        <dd>{userState.username}</dd>
+                        <dt>소속</dt>
+                        <dd>{userState.auth}</dd>
+                    </dl>
                 </>
             )
         }
@@ -25,16 +31,19 @@ export default function Profile() {
 
     return (
         <>
-        <div className='profile__container'>
-            <div className='profile__wrapper'>
-                <CardBox title={'내 정보'} footerTitle={'수정'}>
-                    <p>go</p>
-                </CardBox>
+            <div className='profile__container'>
+                    <div className='column'>
+                        <CardBox title={'내 정보'} footer={'수정'}>
+                            {renderUserInfo()}
+                        </CardBox>
+                    </div>
+                    <div className='column'>
+                        <CardBox title={'유치원 정보'} footer={<Link to='/test-kinder'>바로가기</Link>}>
+                            우리아이가 등록된 유치원 정보를 확인할 수 있어요.<br />
+                            지금 바로 등록해보세요!<br />
+                        </CardBox>
+                    </div>
             </div>
-            {renderUserInfo()}
-            {/* TODO: KinderMain 연결 */}
-            <Link to='/test-kinder'>유치원 바로가기</Link>
-        </div>
         </>
     )
 }
