@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom'
 import querystring from 'querystring'
 
 import SVG from '../components/SVG.tsx'
+import SearchInput from '../components/SearchInput.tsx'
 
 import { hash } from '../../utils/utils.ts'
 
@@ -11,9 +12,7 @@ import '../styles/Search.scss'
 
 export default function Search() {
 
-    const ref = useRef<HTMLInputElement>(null);
     const histroy = useHistory();
-    const [isFocus, setIsFocus] = useState(false);
     const [query, setQuery] = useState('');
     const [datalist, setDatalist] = useState([]);
 
@@ -115,13 +114,13 @@ export default function Search() {
         if (!query && qs) createKakaoMap(qs);
     }, [])
 
-    const getFocus = () => ref.current?.focus();
     const searchQuery = (ev) => setQuery(ev.target.value);
     const searchPush = (ev) => {
-        if (ev.key === 'Enter') {
-            histroy.push(`/search?q=${query}`);
+        if (ev.key === 'Enter' || ev.button === 0) {
             createKakaoMap(query);
+            histroy.push(`/search?q=${query}`);
         }
+        return;
     };
 
     const linkTo = (placeName, addressName) => {
@@ -133,7 +132,7 @@ export default function Search() {
         return datalist.map((el, idx) =>
             <li
                 key={idx}
-                className='result-box__list'
+                className='result__list'
                 onClick={() => linkTo(el.place_name, el.address_name)} >
                 {el.place_name}
                 {el.address_name}
@@ -141,23 +140,13 @@ export default function Search() {
     };
 
     return (
-        <section className='search-section'>
-            <div className={`search-box ${isFocus ? 'focused' : 'unfocused'}`} onClick={getFocus}>
-                <SVG className='svg-icon' name='search_icon' width={30} height={30} />
-                <input
-                    ref={ref} className='search-input' type='text'
-                    onFocus={() => setIsFocus(true)}
-                    onBlur={() => setIsFocus(false)}
-                    onChange={searchQuery}
-                    onKeyPress={searchPush}
-                    placeholder='검색어를 입력하세요'
-                />
-            </div>
-            <div className='result-box'>
+        <section className='search__section'>
+            <SearchInput searchEvent={searchPush} onChange={searchQuery} placeholder='검색어를 입력하세요'/>
+            <div className='result__container'>
                 <div id="map" style={{ width: '500px', height: '400px' }}></div>
-                <div className='result-box__list_wrapper'>
+                <ul className='result__wrapper'>
                     {renderPlaceNameList()}
-                </div>
+                </ul>
                 <div id="pagination"></div>
             </div>
         </section>

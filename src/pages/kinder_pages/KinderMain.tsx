@@ -25,7 +25,7 @@ export default function KinderMain({
         console.log(kinderInfoList)
         let isMounted = true;
         if (!(kinderInfoList.length > 0 && isMounted)) {
-            callApiGetKinderInfo().then(res => {
+            callApiKindergartenInfo().then(res => {
                 if (isMounted) {
                     console.log(res)
                     //setKinderInfoList(res.data)
@@ -36,7 +36,7 @@ export default function KinderMain({
         return () => { isMounted = false; }
     }, [])
 
-    const callApiGetKinderInfo = async () => {
+    const callApiKindergartenInfo = async () => {
         const data = {
             kindergarten_name: history.location.state.place_name,
             address_name: history.location.state.address_name

@@ -2,7 +2,9 @@ import React from 'react'
 import { Link, Switch, Route, useHistory } from 'react-router-dom'
 import { useRecoilValue, useRecoilState } from 'recoil'
 
-import { userStateAtom, kinderEnrollStateAtom } from '../recoils/global.ts'
+import { userStateAtom } from '../recoils/global.ts'
+import KinderGartenApi from '../../api/KinderGartenApi'
+
 import CardBox from '../components/CardBox.tsx'
 import Enroll from './Enroll.tsx'
 
@@ -19,6 +21,10 @@ export default function Profile() {
     };
 
     // TODO: 등록 된 유치원인지 확인하기
+
+    const callApiKindergartenInfo = async () => {
+        await KinderGartenApi.getKindergartenInfo().then(res => console.log(res));
+    };
 
     const renderUserInfo = () => {
         if (userState) {

@@ -59,7 +59,7 @@ export default function Navs() {
     return (
         <nav className='nav__main top'>
             <div className='nav__wrapper'>
-                <h1 className='nav__title'><a href='/'>Kinder Guard</a></h1>
+                <h1 className='nav__title'><a tabIndex={1} href='/'>Kinder Guard</a></h1>
                 <div className='nav__links'>
                     <Link className='nav__link' to='/search'>
                         <SVG className='svg__icon' name='search_icon' width={27} height={27} color='#000000' />
@@ -82,7 +82,7 @@ function ProfileNav({ logout, closeProfileNav }) {
     useOutsideClick(ref, closeProfileNav);
 
     return (
-        <div tabIndex={1} ref={ref} id='profile-nav__container' className='profile-nav__container'>
+        <div tabIndex={2} ref={ref} id='profile-nav__container' className='profile-nav__container'>
             <div className='profile-nav__wrapper'>
                 <div>
                     <div>
