@@ -70,6 +70,9 @@ export default function App() {
         if (utils.isEmpty(Object.values(userState).filter(el => el !== ''))) {
             const token = browserUtils.getCookie('access_token');
             if (token) {
+                if (new Date(jwtDecode(token).exp) > new Date()) {
+                    alert('세션이 만료되었습니다.')
+                }
                 setUserState(jwtDecode(token))
             }
         }
