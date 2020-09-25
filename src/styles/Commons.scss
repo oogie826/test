@@ -2,7 +2,8 @@
 
 // Commons
 .disabled {
-    color: $disabled-color;
+    color: $disabled-font-color;
+    background-color: $disabled-background-color;
     cursor: default;
 }
 

@@ -3,3 +3,10 @@ declare namespace Common {
         [key: string]: any
     }
 }
+
+interface User {
+    username: string,
+    fullname: string,
+    exp: number,
+    auth: string,
+}

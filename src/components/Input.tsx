@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react'
+import React, { FunctionComponent, useRef } from 'react'
 
 import '../styles/Input.scss'
 
@@ -16,21 +16,25 @@ const Input: FunctionComponent<ReadOnlyInputProps> = ({
     className, id, value, type, labelTitle, readOnly, disabled
 }) => {
 
+    const ref = useRef();
+
     return (
-        <div className={`input__wrapper ${className ? className : null}`}>
+        <div className={`input__container ${className ? className : null}`}>
             <label 
                 className={`input__label ${className ? className : null}`} 
                 htmlFor={id}>
                     {labelTitle}
             </label>
+            <div className={`input__wrapper ${disabled ? 'disabled' : null}`}>
                 <input 
-                    className={`input ${className ? className : null}`} 
+                    className={`input ${disabled ? 'disabled' : null}`} 
                     id={id} 
                     value={value}
                     type={type ? type : 'text'}
                     disabled={disabled}
                     readOnly={readOnly}
                 />
+            </div>
         </div>
     )
 }

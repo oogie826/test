@@ -25,16 +25,16 @@
 
 .unfocused.search__input_wrapper {
     @include search__input_wrapper();
-    border: 1px solid $disabled-color !important;
+    border: 1px solid $disabled-background-color !important;
     .search__input {
         @include search__input();
-        color: $disabled-color !important;
+        color: $disabled-background-color !important;
         &::placeholder {
-            color: $disabled-color !important;
+            color: $disabled-background-color !important;
         }
     }
     path {
-        fill: $disabled-color;
+        fill: $disabled-background-color;
     }
 }
 
@@ -43,7 +43,7 @@
     .search__input {
         @include search__input();
         &::placeholder {
-            color: $disabled-color;
+            color: $disabled-background-color;
         }
     }
     path {

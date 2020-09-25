@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useRecoilState } from 'recoil'
-import { Route, Switch } from 'react-router-dom'
+import { Redirect, Route, Switch } from 'react-router-dom'
 import jwtDecode from 'jwt-decode'
 
 // custom
@@ -16,6 +16,7 @@ import LoginDialog from './components/LoginDialog.tsx'
 import KinderMain from './pages/kinder_pages/KinderMain.tsx'
 import Profile from './pages/Profile.tsx'
 import Footer from './components/Footer.tsx'
+import PermitRoute from './components/PermittRoute.tsx'
 
 // styles
 import './styles/App.scss'
@@ -83,7 +84,10 @@ export default function App() {
                 setUserState(jwtDecode(token))
             }
         }
-    })
+        else {
+
+        }
+    });
 
     // TODO: Login 시에만 접근 가능하도록 라우팅
     return (
@@ -94,8 +98,14 @@ export default function App() {
                     <Route exact path='/' component={() => <Introduction />} />
                     <Route path='/search' component={() => <Search />} />
                     <Route path='/@:place_name' component={() => <KinderMain />} />
-                    <Route path='/profile' component={() => <Profile />} />
-                    <Route path='/test' component={() => <ImportTestData />} />
+                    <PermitRoute 
+                        path='/profile' 
+                        exact
+                        component={Profile} 
+                        fallback={Introduction}
+                        isAllow={userState => userState.username ? true : false}
+                    />
+                    <Redirect to='/' />
                 </Switch>
             </div>
             { isLoginDialogOpen.isComponentVisible ? 
