@@ -4,6 +4,7 @@ import { consoleLog } from '../../utils/browserUtils.ts';
 import KinderGartenApi from '../../api/KinderGartenApi'
 
 import SearchInput from '../components/SearchInput.tsx';
+import ReadOnlyInput from '../components/ReadOnlyInput.tsx';
 
 export default function Enroll() {
 
@@ -82,12 +83,9 @@ export default function Enroll() {
     return (
         <div>
             <div>
-                <label htmlFor="place_name">이름</label>
-                <input id='place_name' type="text" value={values.place_name} readOnly disabled />
-                <label htmlFor="address_name">주소</label>
-                <input id='address_name' type="text" value={values.address_name} readOnly disabled />
-                <label htmlFor="reg_number">사업자등록번호</label>
-                <input id='reg_number' type="text" />
+                <ReadOnlyInput id='place_name' labelTitle='이름' value={values.place_name}/>
+                <ReadOnlyInput id='place_name' labelTitle='주소' value={values.address_name}/>
+                <ReadOnlyInput id='reg_number' labelTitle='사업자등록번호' value={values.reg_number}/>
                 <button className='btn' onClick={callApiEnrollKindergarten}>등록</button>
             </div>
             <SearchInput onChange={searchKeyword} searchEvent={search} />
