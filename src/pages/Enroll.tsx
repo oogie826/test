@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import { useRecoilValue } from 'recoil'
 
 import { consoleLog } from '../../utils/browserUtils.ts';
 import KinderGartenApi from '../../api/KinderGartenApi'
+import { userStateAtom } from '../recoils/global.ts'
 
 import SearchInput from '../components/SearchInput.tsx';
 import ReadOnlyInput from '../components/Input.tsx';
@@ -11,7 +13,8 @@ import '../styles/Enroll.scss';
 const initForm = {
     place_name: '',
     address_name: '',
-    reg_number: ''
+    reg_number: '',
+    username: ''
 };
 
 export default function Enroll() {
@@ -19,6 +22,11 @@ export default function Enroll() {
     const [keyword, setKeyword] = useState('');
     const [datalist, setDatalist] = useState([]);
     const [values, setValues] = useState(initForm);
+    const userState = useRecoilValue(userStateAtom);
+
+    useEffect(() => {
+        setValues({ ...values, username: userState?.username});
+    }, []);
 
     useEffect(() => {
         consoleLog(Object.values(values));

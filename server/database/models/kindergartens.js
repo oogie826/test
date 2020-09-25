@@ -8,6 +8,7 @@ const dailyWorkSchema = new mongoose.Schema({
 })
 
 const kinderGartenSchema = new mongoose.Schema({
+    username: { type: String },
     place_name: { type: String, required: true },
     address_name: { type: String, required: true },
     reg_number: { type: String },
