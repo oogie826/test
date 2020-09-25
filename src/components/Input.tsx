@@ -8,12 +8,12 @@ interface ReadOnlyInputProps{
     value: string,
     type: string,
     labelTitle: string,
-    defaultValue: string,
     readOnly: boolean
+    disabled: boolean
 }
 
 const Input: FunctionComponent<ReadOnlyInputProps> = ({
-    className, id, value, type, labelTitle, readOnly,defaultValue
+    className, id, value, type, labelTitle, readOnly, disabled
 }) => {
 
     return (
@@ -27,10 +27,9 @@ const Input: FunctionComponent<ReadOnlyInputProps> = ({
                     className={`input ${className ? className : null}`} 
                     id={id} 
                     value={value}
-                    defaultValue={defaultValue}
                     type={type ? type : 'text'}
-                    disabled={readOnly ? true : false}
-                    readOnly={readOnly ? true : false}
+                    disabled={disabled}
+                    readOnly={readOnly}
                 />
         </div>
     )

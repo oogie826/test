@@ -6,15 +6,19 @@ import KinderGartenApi from '../../api/KinderGartenApi'
 import SearchInput from '../components/SearchInput.tsx';
 import ReadOnlyInput from '../components/Input.tsx';
 
+import '../styles/Enroll.scss';
+
+const initForm = {
+    place_name: '',
+    address_name: '',
+    reg_number: ''
+};
+
 export default function Enroll() {
 
     const [keyword, setKeyword] = useState('');
     const [datalist, setDatalist] = useState([]);
-    const [values, setValues] = useState({
-        place_name: '',
-        address_name: '',
-        reg_number: ''
-    });
+    const [values, setValues] = useState(initForm);
 
     useEffect(() => {
         consoleLog(Object.values(values));
@@ -63,6 +67,9 @@ export default function Enroll() {
             searchPlace(keyword)
         }
     };
+    const deleteFormValues = () => {
+        setValues(initForm);
+    };
 
     const enrollKinder = (placeName: string, addressName: string) => {
         setValues({ ...values, place_name: placeName, address_name: addressName });
@@ -82,11 +89,14 @@ export default function Enroll() {
 
     return (
         <div>
-            <div>
-                <ReadOnlyInput id='place_name' labelTitle='이름' defaultValue='' value={values.place_name} readOnly={true} />
-                <ReadOnlyInput id='address_name' labelTitle='주소' defaultValue='' value={values.address_name} readOnly={true} />
-                <ReadOnlyInput id='reg_number' labelTitle='사업자등록번호' defaultValue='' value={values.reg_number} readOnly={false}/>
-                <button className='btn' onClick={callApiEnrollKindergarten}>등록</button>
+            <div className='enroll__inputs_wrapper'>
+                <ReadOnlyInput id='place_name' labelTitle='이름' value={values.place_name} readOnly={true} disabled={true} />
+                <ReadOnlyInput id='address_name' labelTitle='주소' value={values.address_name} readOnly={true} disabled={true} />
+                <ReadOnlyInput id='reg_number' labelTitle='사업자등록번호' readOnly={false} disabled={false} />
+                <div className='enroll__btns_wrapper'>
+                    <button className='btn' onClick={callApiEnrollKindergarten}>등록</button>
+                    <button className='btn' onClick={deleteFormValues}>초기화</button>
+                </div>
             </div>
             <SearchInput onChange={searchKeyword} searchEvent={search} />
             <ul id='list' className='list__container'>
