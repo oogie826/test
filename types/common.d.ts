@@ -1,7 +1,5 @@
-declare namespace Common {
-    interface Obj {
-        [key: string]: any
-    }
+interface Obj {
+    [key: string]: any
 }
 
 interface User {

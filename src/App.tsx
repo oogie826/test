@@ -16,7 +16,7 @@ import LoginDialog from './components/LoginDialog.tsx'
 import KinderMain from './pages/kinder_pages/KinderMain.tsx'
 import Profile from './pages/Profile.tsx'
 import Footer from './components/Footer.tsx'
-import PermitRoute from './components/PermittRoute.tsx'
+import PermitRoute from './components/PermitRoute.tsx'
 
 // styles
 import './styles/App.scss'
@@ -84,9 +84,7 @@ export default function App() {
                 setUserState(jwtDecode(token))
             }
         }
-        else {
-
-        }
+        console.log({...userState})
     });
 
     // TODO: Login 시에만 접근 가능하도록 라우팅
@@ -100,7 +98,6 @@ export default function App() {
                     <Route path='/@:place_name' component={() => <KinderMain />} />
                     <PermitRoute 
                         path='/profile' 
-                        exact
                         component={Profile} 
                         fallback={Introduction}
                         isAllow={userState => userState.username ? true : false}

@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom'
 import { userStateAtom, loginDialogAtom } from '../recoils/global.ts'
 
 import SVG from '../components/SVG.tsx'
-import { deleteCookie } from '../../utils/browserUtils.ts'
-import { isEmpty } from '../../utils/utils.ts'
 
 import '../styles/Navs.scss'
 import '../styles/ProfileNav.scss'

@@ -13,7 +13,7 @@ import '../styles/Profile.scss'
 export default function Profile() {
 
     const history = useHistory();
-    const userState: Common.Obj = useRecoilValue(userStateAtom);
+    const userState: Obj = useRecoilValue(userStateAtom);
 
     const defaultDescription = {
         pKinderDesc: (<span>우리아이가 등록된 유치원 정보를 확인할 수 있어요.<br />지금 바로 등록해보세요!<br /></span>),
