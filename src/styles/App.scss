@@ -1,4 +1,4 @@
-@import url('Fonts.css');
+@import './Fonts.scss';
 
 html, body, #root {
     margin: 0;
@@ -17,7 +17,7 @@ html, body, #root {
     outline: 1px solid #000000;
 }
 
-input, button, a, dl, dt, dd {
+input, button, a, dl, dt, dd, ul, ol, li {
     border: none;
     outline: none;
     margin: 0;

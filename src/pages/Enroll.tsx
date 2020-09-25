@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react'
 
+import { consoleLog } from '../../utils/browserUtils.ts';
+import KinderGartenApi from '../../api/KinderGartenApi'
+
 import SearchInput from '../components/SearchInput.tsx';
 
 export default function Enroll() {
@@ -13,7 +16,7 @@ export default function Enroll() {
     });
 
     useEffect(() => {
-
+        consoleLog(Object.values(values));
     }, [values]);
 
     function searchPlace(keyword) {
@@ -22,7 +25,7 @@ export default function Enroll() {
 
         function placesSearchCB(data, status, pagination) {
             if (status === globalThis.kakao.maps.services.Status.OK) {
-                const paginationIndex = document.getElementById('page');
+                const paginationIndex = document.getElementsByClassName('pagination__wrapper')[0];
                 setDatalist(data);
 
                 while (paginationIndex?.hasChildNodes()) {
@@ -32,6 +35,7 @@ export default function Enroll() {
                 for (let i = 1; i <= pagination.last; i += 1) {
                     const index = document.createElement('a');
                     index.innerHTML = String(i);
+                    index.classList.add('pagination__nums');
                     if (i === pagination.current) {
                         index.classList.add('on');
                     }
@@ -48,8 +52,8 @@ export default function Enroll() {
         return;
     }
 
-    const callApiEnrollRegisterationNumber = () => {
-        // TODO: 사업자 번호를 통한 사업자 확인하는 API
+    const callApiEnrollKindergarten = () => {
+        KinderGartenApi.postEnrollKindergarten(values).then(res => console.log(res))
     };
 
     const searchKeyword = (ev) => setKeyword(ev.target.value);
@@ -58,41 +62,39 @@ export default function Enroll() {
             searchPlace(keyword)
         }
     };
-    
+
     const enrollKinder = (placeName: string, addressName: string) => {
-        setValues({...values, place_name: placeName, address_name: addressName});
+        setValues({ ...values, place_name: placeName, address_name: addressName });
     };
 
     const renderPlaceNameList = () => {
         return datalist.map((el, idx) =>
             <li
                 key={idx}
-                className='result-box__list'
+                className='list__item'
                 onClick={() => enrollKinder(el.place_name, el.address_name)}
             >
-                {el.place_name}
-                {el.address_name}
+                <span>{el.place_name}</span>
+                <span>{el.address_name}</span>
             </li>);
     };
 
     return (
         <div>
             <div>
-                <form>
-                    <label htmlFor="place_name">이름</label>
-                    <input id='place_name' type="text" value={values.place_name} readOnly disabled />
-                    <label htmlFor="address_name">주소</label>
-                    <input id='address_name' type="text" value={values.address_name} readOnly disabled />
-                    <label htmlFor="reg_number">사업자등록번호</label>
-                    <input id='reg_number' type="text" />
-                    <button className='btn'>등록</button>
-                </form>
+                <label htmlFor="place_name">이름</label>
+                <input id='place_name' type="text" value={values.place_name} readOnly disabled />
+                <label htmlFor="address_name">주소</label>
+                <input id='address_name' type="text" value={values.address_name} readOnly disabled />
+                <label htmlFor="reg_number">사업자등록번호</label>
+                <input id='reg_number' type="text" />
+                <button className='btn' onClick={callApiEnrollKindergarten}>등록</button>
             </div>
-            <SearchInput onChange={searchKeyword} searchEvent={search}/>
-            <div id='list'>
+            <SearchInput onChange={searchKeyword} searchEvent={search} />
+            <ul id='list' className='list__container'>
                 {renderPlaceNameList()}
-            </div>
-            <div id='page'></div>
+            </ul>
+            <div className='pagination__wrapper'></div>
         </div>
     )
 }

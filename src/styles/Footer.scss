@@ -1,3 +1,5 @@
+@import './ColorSet.scss';
+
 footer {
     position: relative;
     width: 100%;
@@ -6,6 +8,6 @@ footer {
     justify-content: center;
     align-items: center;
     height: 10vh;
-    background-color: #eeeeee;
+    background-color: $bright-gray_background-color;
     font-size: 0.9rem;
 }

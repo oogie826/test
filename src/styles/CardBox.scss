@@ -1,11 +1,13 @@
+@import './ColorSet.scss';
+
 .cardbox__container {
     display: block;
     width: 380px;
     padding: 30px;
     margin: 20px 10px;
-    border: 1px solid #c5c5c5;
-    background-color: #f5f5f5;
-    color: #3a3a3a;
+    border: 1px solid $gray_border-color;
+    background-color: $gray_background-color;
+    color: $deep-gray_font-color;
 
     .cardbox__wrapper {
         display: flex;

@@ -54,7 +54,13 @@ export default function App() {
         setTimeout(() => {
             setIsLoginDialogOpen({isComponentVisible: false, isStyleVisible: false});
         }, 500);
-    }
+    };
+
+    const logout = () => {
+        setUserState({});
+        browserUtils.deleteCookie('access_token');
+        globalThis.location.replace('/');
+    };
 
     useEffect(() => {
         browserUtils.scrollNavigation('nav__main');
@@ -67,21 +73,22 @@ export default function App() {
     }, [isLoginDialogOpen])
 
     useEffect(() => {
-        if (utils.isEmpty(Object.values(userState).filter(el => el !== ''))) {
-            const token = browserUtils.getCookie('access_token');
-            if (token) {
-                if (new Date(jwtDecode(token).exp) > new Date()) {
+        const token = browserUtils.getCookie('access_token');
+        if (token) {
+            if (utils.isEmpty(Object.values(userState).filter(el => el !== ''))) {
+                if (new Date(jwtDecode(token).exp * 1000) < new Date()) {
                     alert('세션이 만료되었습니다.')
+                    logout();
                 }
                 setUserState(jwtDecode(token))
             }
         }
-    }, [userState])
+    })
 
     // TODO: Login 시에만 접근 가능하도록 라우팅
     return (
         <>
-            <Navs />
+            <Navs logout={logout}/>
             <div className='root__main'>
                 <Switch>
                     <Route exact path='/' component={() => <Introduction />} />

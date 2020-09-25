@@ -25,7 +25,7 @@ function useOutsideClick(ref, callback) {
     }, [ref])
 }
 
-export default function Navs() {
+export default function Navs({logout}) {
 
     const [loginDialogState, setLoginDialogState] = useRecoilState(loginDialogAtom);
     const [userState, setUserState] = useRecoilState(userStateAtom);
@@ -49,12 +49,6 @@ export default function Navs() {
         setProfileNavState({ isComponentVisible: false, isStyleVisible: false });
         return;
     }
-
-    const logout = () => {
-        setUserState({});
-        deleteCookie('access_token');
-        globalThis.location.replace('/');
-    };
 
     return (
         <nav className='nav__main top'>

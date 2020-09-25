@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import querystring from 'querystring'
 
-import SVG from '../components/SVG.tsx'
 import SearchInput from '../components/SearchInput.tsx'
 
 import { hash } from '../../utils/utils.ts'
@@ -74,7 +73,7 @@ export default function Search() {
         }
 
         function displayPagination(pagination) {
-            let paginationEl = document.getElementById('pagination'),
+            let paginationEl = document.getElementsByClassName('pagination__wrapper')[0],
                 fragment = document.createDocumentFragment(),
                 i;
 
@@ -132,10 +131,10 @@ export default function Search() {
         return datalist.map((el, idx) =>
             <li
                 key={idx}
-                className='result__list'
+                className='list__item'
                 onClick={() => linkTo(el.place_name, el.address_name)} >
-                {el.place_name}
-                {el.address_name}
+                <span>{el.place_name}</span>
+                <span>{el.address_name}</span>
             </li>);
     };
 
@@ -143,8 +142,8 @@ export default function Search() {
         <section className='search__section'>
             <SearchInput searchEvent={searchPush} onChange={searchQuery} placeholder='검색어를 입력하세요'/>
             <div className='result__container'>
-                <div id="map" style={{ width: '500px', height: '400px' }}></div>
-                <ul className='result__wrapper'>
+                <div id="map" style={{ width: '768px', height: '400px' }}></div>
+                <ul className='list__container'>
                     {renderPlaceNameList()}
                 </ul>
                 <div id="pagination"></div>

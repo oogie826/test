@@ -1,7 +1,7 @@
 import AxoisApiConfig from './AxiosApiConfig';
 
 export default {
-    enrollKindergarten(data) {
+    postEnrollKindergarten(data) {
         return AxoisApiConfig({
             url: '/kindergartens/enroll-kindergarten',
             method: 'post',

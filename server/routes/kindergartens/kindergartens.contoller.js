@@ -3,9 +3,10 @@ const Kindergarten = require('../../database/models/kindergartens');
 
 exports.enrollKindergarten = async function(req, resp, next) {
     try {
+        console.log(req.body)
         const updateQuery = {
-            kindergarten_name: req.body.val,
-            location: req.body.val,
+            place_name: req.body.place_name,
+            address_name: req.body.address_name,
         };
 
         const options = {
@@ -17,11 +18,11 @@ exports.enrollKindergarten = async function(req, resp, next) {
         mongoConn.conn();
         await new Kindergarten(updateQuery).save((err, res) => {
             if (err) throw err;
-            resp.status(201).json({
-                description: 'Test input data updated'
-            })
             mongoConn.disconn();
         });
+        resp.status(201).json({
+            description: 'Test input data updated'
+        })
     }
     catch (err) {
         throw err;

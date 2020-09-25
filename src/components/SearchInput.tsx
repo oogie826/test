@@ -38,7 +38,7 @@ export default function SearchInput({
                     onFocus={() => _setIsFocus(true)}
                     onBlur={() => _setIsFocus(false)}
                 />
-                <button className='btn' onClick={searchEvent}>검색</button>
+                <button className='btn inserted-search-btn' onClick={searchEvent}>검색</button>
             </div>
         </>
     )

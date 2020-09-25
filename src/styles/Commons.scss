@@ -1,3 +1,16 @@
+@import './ColorSet.scss';
+
+// Commons
+.disabled {
+    color: $disabled-color;
+    cursor: default;
+}
+
+.activated {
+    background-color: $primary-color;
+}
+
+// Buttons
 .btn {
     display: flex;
     justify-content: center;
@@ -17,9 +30,34 @@
 }
 
 .login-btn {
-    background-color: #7b96b9;
+    background-color: $secondary-color;
     border: none;
 }
+
+// List
+.list__container {
+
+    .list__item {
+        list-style: none;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid $gray_border-color;
+        cursor: pointer;
+
+        &:hover {
+            transform: translate(2px, -2px);
+            box-shadow: 4px 4px 5px #000000;
+        }
+
+        & span {
+            margin-left: 10px;
+            &:nth-child(1) {
+                font-weight: bold;
+            }
+        }
+    }
+}
+
 
 // Element: dl
 .data-sheet {

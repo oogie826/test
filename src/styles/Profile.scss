@@ -1,3 +1,5 @@
+@import './ColorSet.scss';
+
 .profile__container {
     display: flex;
     min-height: 100vh;
@@ -5,7 +7,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     padding: 2rem;
-    background-color: #f0f0f0;
+    background-color: $bright-gray_background-color;
 }
 
 .column {

@@ -1,10 +1,12 @@
+@import './ColorSet.scss';
+
 @mixin search__input_wrapper {
     display: flex;
     align-items: center;
     width: 768px;
     height: 3.5rem;
     padding: 0 1rem 0 1rem;
-    border: 1px solid #2c2c2c;
+    border: 1px solid $deep-gray_border-color;
 }
 
 @mixin search__input {
@@ -13,22 +15,26 @@
     line-height: 3rem;
     width: 100%;
     margin-left: 1rem;
-    color: #2c2c2c;
+    color: $deep-gray_font-color;
     font-family: 'Nanum Gothic', sans-serif;
+
+    &:focus {
+        outline: none;
+    }
 }
 
 .unfocused.search__input_wrapper {
     @include search__input_wrapper();
-    border: 1px solid #929292 !important;
+    border: 1px solid $disabled-color !important;
     .search__input {
         @include search__input();
-        color: #929292 !important;
+        color: $disabled-color !important;
         &::placeholder {
-            color: #929292 !important;
+            color: $disabled-color !important;
         }
     }
     path {
-        fill: #929292;
+        fill: $disabled-color;
     }
 }
 
@@ -37,10 +43,14 @@
     .search__input {
         @include search__input();
         &::placeholder {
-            color: #929292;
+            color: $disabled-color;
         }
     }
     path {
-        fill: #2c2c2c;
+        fill: $deep-gray_font-color;
     }
+}
+
+.inserted-search-btn {
+    height: 2.5rem !important;
 }
