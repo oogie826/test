@@ -67,7 +67,6 @@ export default function Profile() {
 
     const renderKindergartenInfo = () => {
         const { pKinderDesc, tKinderDesc } = defaultDescription;
-        console.log(kinder)
         if (kinder) {
             return kinder.map((el, idx) =>
                 <div className='item' key={idx} onClick={() => linkTo(el.place_name, el.address_name)}>
