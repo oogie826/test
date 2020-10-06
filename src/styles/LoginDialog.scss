@@ -18,14 +18,13 @@
     z-index: 999;
 
     .login__dialog_form-wrapper {
-        border: 1px solid green;
         padding: 25px;
         .login__dialog_input {
             display: block;
             width: 80%;
             height: 2.5rem;
             font-size: 1.5rem;
-            border: 1px solid red;
+            margin-bottom: 5px;
         }    
     }
 
@@ -53,6 +52,7 @@
 
 .left__block {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: #cccccc;

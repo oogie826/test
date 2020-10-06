@@ -1,4 +1,8 @@
 .kinder-main__container {
-    padding: 4rem;
+    display: flex;
     border: 1px solid red;
+}
+
+.review-input {
+    border: 1px solid black;
 }

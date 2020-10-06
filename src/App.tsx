@@ -16,16 +16,18 @@ import LoginDialog from './components/LoginDialog.tsx'
 import KinderMain from './pages/kinder_pages/KinderMain.tsx'
 import Profile from './pages/Profile.tsx'
 import Footer from './components/Footer.tsx'
-import PermitRoute from './components/PermitRoute.tsx'
+import PermitRoute from './components/RestrictedRoute.tsx'
 
 // styles
 import './styles/App.scss'
-import './styles/Commons.scss'
+import './styles/Common.scss'
+
+const KAKAO_JS_KEY = process.env.REACT_APP_KAKAO_JS_KEY;
 
 function initApp() {
     browserUtils.consoleLog('App Init', {fontWeight: 'bold'});
     const jsKey = 'ad98ca818bb064b0b2493181da6cae21'
-    const kakaoSDK = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${jsKey}&libraries=services`;
+    const kakaoSDK = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAO_JS_KEY}&libraries=services`;
 
     document.title = 'Kinder Guard';
 

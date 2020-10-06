@@ -8,6 +8,7 @@ import { userStateAtom } from '../recoils/global.ts'
 import UserApi from '../../api/UserApi'
 
 import '../styles/LoginDialog.scss'
+import loginTitle from '../styles/assets/login_title.svg'
 
 interface LoginDialogProps {
     closeDialog: () => void,
@@ -93,6 +94,7 @@ export default function LoginDialog({
             <div className={`login__dialog ${isStyleVisible ? 'toast' : 'untoast'}`}>
                 <div className='left__block'>
                     <h1>환영합니다!</h1>
+                    <img src={loginTitle} width={200} height={200}/>
                 </div>
 
                 <div className='right__block'>

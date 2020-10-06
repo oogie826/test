@@ -6,7 +6,7 @@ import KinderGartenApi from '../../api/KinderGartenApi'
 import { userStateAtom } from '../recoils/global.ts'
 
 import SearchInput from '../components/SearchInput.tsx';
-import ReadOnlyInput from '../components/Input.tsx';
+import Input from '../components/Input.tsx';
 
 import '../styles/Enroll.scss';
 
@@ -98,9 +98,9 @@ export default function Enroll() {
     return (
         <div>
             <div className='enroll__inputs_wrapper'>
-                <ReadOnlyInput id='place_name' labelTitle='이름' value={values.place_name} readOnly={true} disabled={true} />
-                <ReadOnlyInput id='address_name' labelTitle='주소' value={values.address_name} readOnly={true} disabled={true} />
-                <ReadOnlyInput id='reg_number' labelTitle='사업자등록번호' readOnly={false} disabled={false} />
+                <Input id='place_name' labelTitle='이름' value={values.place_name} readOnly={true} disabled={true} />
+                <Input id='address_name' labelTitle='주소' value={values.address_name} readOnly={true} disabled={true} />
+                <Input id='reg_number' labelTitle='사업자등록번호' readOnly={false} disabled={false} />
                 <div className='enroll__btns_wrapper'>
                     <button className='btn' onClick={callApiEnrollKindergarten}>등록</button>
                     <button className='btn' onClick={deleteFormValues}>초기화</button>

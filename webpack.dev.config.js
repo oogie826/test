@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const Dotenv = require('dotenv-webpack')
 
 module.exports = {
 
@@ -20,6 +21,12 @@ module.exports = {
         hot: true,
         historyApiFallback: true,
         contentBase: './'
+    },
+
+    resolve: {
+        alias: {
+            '@': path.resolve(__dirname, 'src/')
+        }
     },
 
     module: {
@@ -46,8 +53,11 @@ module.exports = {
                 use: ['style-loader', 'css-loader', 'sass-loader']
             },
             {
-                test: /\.(png|jpe?g|gif)$/i,
-                use: ['file-loader']
+                test: /\.(png|jpe?g|gif|svg)$/i,
+                loader: 'file-loader',
+                options: {
+                    name: 'styles/[hash]-[name].[ext]'
+                }
             },
         ]
     },
@@ -56,6 +66,7 @@ module.exports = {
         new HtmlWebPackPlugin({
             template: './src/index.html'
         }),
-        new CleanWebpackPlugin()
+        new CleanWebpackPlugin(),
+        new Dotenv()
     ]
 }

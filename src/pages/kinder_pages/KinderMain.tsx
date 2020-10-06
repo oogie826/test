@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import querystring from 'querystring'
-
+import qs from 'qs';
+import { useRecoilValue, useRecoilState } from 'recoil'
+import { userStateAtom } from '../../recoils/global.ts'
+import Rate from 'rc-rate'
+import 'rc-rate/assets/index.css';
 import UserApi from '../../../api/UserApi'
 import KinderGartenApi from '../../../api/KinderGartenApi'
+
+import SideNav from './SideNav.tsx'
 
 import '../../styles/KinderMain.scss'
 
@@ -17,9 +22,19 @@ export default function KinderMain({
 
     const history = useHistory();
 
-    console.log(history)
-    const pathname = Object.keys(querystring.parse(document.location.pathname));
+    const userState = useRecoilValue(userStateAtom)
+
+    const pathname = Object.keys(qs.parse(document.location.pathname));
     const [kinderInfoList, setKinderInfoList] = useState([]);
+    const [review, setReview] = useState({
+        place_name: history.location.state.place_name,
+        address_name: history.location.state.address_name,
+        comment: '',
+        rating: 1,
+        username: userState.username
+    });
+
+    const [loadedReviews, setLoadedReviews] = useState([]);
 
     useEffect(() => {
         console.log(kinderInfoList)
@@ -27,38 +42,68 @@ export default function KinderMain({
         if (!(kinderInfoList.length > 0 && isMounted)) {
             callApiKindergartenInfo().then(res => {
                 if (isMounted) {
+                    setKinderInfoList(res.data)
                     console.log(res)
-                    //setKinderInfoList(res.data)
                 }
             })
         }
-
         return () => { isMounted = false; }
     }, [])
 
+    useEffect(() => {
+        if (kinderInfoList) {
+            addReviews()
+        }
+    }, [kinderInfoList])
+
     const callApiKindergartenInfo = async () => {
-        const data = {
-            kindergarten_name: history.location.state.place_name,
+        const params = {
+            place_name: history.location.state.place_name,
             address_name: history.location.state.address_name
         };
-        return await KinderGartenApi.getKindergartenInfo(data);
+        const response =  await KinderGartenApi.getKindergartenInfo(qs.stringify(params));
+        setKinderInfoList(response.data);
+        return response;
     };
+
+    const enrollReview = async () => {
+        await KinderGartenApi.postKindergartenReview(review).then(res => console.log(res));
+    };
+
+    const addReviews = () => {
+        const arr =  kinderInfoList.reviews;
+        setLoadedReviews(arr);
+    };
+
+    const renderReviews = () => {
+        return loadedReviews.map((el, idx) => 
+            <div key={idx}>
+                <span>평점: {el.rating}</span>
+                <span>리뷰: {el.comment}</span>
+            </div>
+        )
+    }
 
     return (
         <div className='kinder-main__container'>
-            {pathname}
-            <div>{kindergartenName ? kindergartenName : 'dev'}</div>
+            <SideNav />
             <div>
-                <h1>오늘 학원 일과</h1>
-                <div>리스트</div>
-            </div>
-            <div>
-                <h1>주간 급식</h1>
-            </div>
-            <div>
-                <a>아이 발달 과정 평가 현황</a>
+                <h1>{history.location.state.place_name}</h1>
+                <p>{history.location.state.address_name}</p>
+                <div>
+                    <h2>한 줄 평가</h2>
+                    <p>인증된 사용자만 평가할 수 있어요</p>
+                    <div>
+                        <Rate defaultValue={1} onChange={(value) => setReview({...review, rating: value})}/>
+                        <input className='review-input' type='text' onChange={(ev) => setReview({...review, comment: ev.target.value})} />
+                        <button onClick={enrollReview}>등록</button>
+                    </div>
+                </div>
+                <div className='reviews-container'>
+                    <div className='review-item'>리뷰</div>
+                    {loadedReviews ? renderReviews() : null}
+                </div>
             </div>
         </div>
     )
-
 }

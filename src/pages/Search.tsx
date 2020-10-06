@@ -11,7 +11,7 @@ import '../styles/Search.scss'
 
 export default function Search() {
 
-    const histroy = useHistory();
+    const history = useHistory();
     const [query, setQuery] = useState('');
     const [datalist, setDatalist] = useState([]);
 
@@ -117,13 +117,13 @@ export default function Search() {
     const searchPush = (ev) => {
         if (ev.key === 'Enter' || ev.button === 0) {
             createKakaoMap(query);
-            histroy.push(`/search?q=${query}`);
+            history.push(`/search?q=${query}`);
         }
         return;
     };
 
     const linkTo = (placeName, addressName) => {
-        histroy.push(`/@${(placeName).replace(/\s/g, '')}${hash(addressName)}`, { place_name: placeName, address_name: addressName });
+        history.push(`/@${(placeName).replace(/\s/g, '')}${hash(addressName)}`, { place_name: placeName, address_name: addressName });
         return;
     };
 

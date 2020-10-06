@@ -1,0 +1,16 @@
+.desc_list {
+
+    dt {
+        float: left;
+        font-weight: bold;
+        width: 40%;
+        padding-top: 5px;
+    }
+
+    dd {
+        float: left;
+        width: 60%;
+        overflow: hidden;
+        padding-top: 5px;
+    }
+}
