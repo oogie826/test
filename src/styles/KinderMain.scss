@@ -1,8 +1,36 @@
-.kinder-main__container {
+.kinder-main-container {
     display: flex;
     border: 1px solid red;
 }
 
+.kinder-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    border: 1px solid green;
+
+    .kinder-main-wrapper {
+        
+    }
+}
+
 .review-input {
     border: 1px solid black;
+}
+
+.kinder-review-container {
+    border: 1px solid red;
+}
+
+.kinder-review-wrapper {
+    display: block;
+    margin: 1px;
+    border: 1px solid blue;
+
+
+    .kinder-review-item {
+
+    }
 }

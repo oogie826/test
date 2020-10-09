@@ -73,11 +73,9 @@ exports.enrollReview = async function (req, resp, next) {
 exports.getKindergartenInfo = async function (req, resp, next) {
     try {
         const params = qs.parse(req.params.params);
-        console.log(params)
         mongoConn.conn();
         const result = await Kindergarten.findOne({place_name: params.place_name});
         if (result) {
-            console.log(result)
             resp.send(result)
         }
         mongoConn.disconn();
@@ -91,11 +89,9 @@ exports.getKindergartenInfo = async function (req, resp, next) {
 exports.getKindergartenInfoByUsername = async function (req, resp, next) {
     try {
         const params = qs.parse(req.params.params);
-        console.log(params)
         mongoConn.conn();
         const result = await Kindergarten.find({username: params.username});
         if (result) {
-            console.log(result)
             resp.send(result)
         }
         mongoConn.disconn();

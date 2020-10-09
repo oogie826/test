@@ -16,4 +16,12 @@ export default {
             data: data
         })
     },
+
+    enrollUserChild(data) {
+        return AxoisApiConfig({
+            url: '/users/enroll-child',
+            method: 'post',
+            data: data
+        })
+    },
 }

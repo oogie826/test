@@ -9,6 +9,7 @@ import { hash } from '../../utils/utils.ts'
 
 import CardBox from '../components/CardBox.tsx'
 import Enroll from './Enroll.tsx'
+import Edit from './Edit.tsx'
 import DescriptionList from '../components/DescriptionList.tsx'
 
 import '../styles/Profile.scss'
@@ -56,8 +57,14 @@ export default function Profile() {
                     <DescriptionList title='아이디'>
                         {userState.username}
                     </DescriptionList>
-                    <DescriptionList title='소속'>
+                    <DescriptionList title='권한'>
                         {userState.auth}
+                    </DescriptionList>
+                    <DescriptionList title='자녀'>
+                        {userState.child_name}
+                    </DescriptionList>
+                    <DescriptionList title='등록 유치원'>
+                        {userState.place_name}
                     </DescriptionList>
                 </>
             )
@@ -83,7 +90,7 @@ export default function Profile() {
         return (
             <>
                 <div className='column'>
-                    <CardBox title={'내 정보'} footer={'수정'}>
+                    <CardBox title={'내 정보'} footer={<Link to='/profile/edit'>수정하기</Link>}>
                         {renderUserInfo()}
                     </CardBox>
                 </div>
@@ -102,6 +109,7 @@ export default function Profile() {
                 <Switch>
                     <Route exact path='/profile' render={() => renderProfileMain()} />
                     <Route path='/profile/enroll' component={Enroll} />
+                    <Route path='/profile/edit' component={Edit} />
                 </Switch>
             </div>
         </>

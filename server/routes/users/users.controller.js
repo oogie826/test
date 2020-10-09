@@ -62,3 +62,27 @@ exports.login = async function(req, resp, next) {
     }
     return;
 }
+
+exports.enrollUserChild = async function (req, resp, next) {
+    try {
+        console.log(req.body)
+        const query = {
+            username: req.body.username,
+            child_name: req.body.child_name,
+        };
+        const options = {
+            upsert: true
+        };
+        mongoConn.conn();
+        await User.findOneAndUpdate({username: req.body.username}, query, options, (err, res) => {
+            if (err) throw err;
+        })
+        resp.status(200).end();
+        mongoConn.disconn();
+    }
+    catch (err) {
+        console.error(err);
+        next(err);
+    }
+    return;
+}
