@@ -4,6 +4,12 @@ import { useRecoilValue } from 'recoil'
 import { consoleLog } from '../../utils/browserUtils.ts';
 import KinderGartenApi from '../../api/KinderGartenApi'
 import { userStateAtom } from '../recoils/global.ts'
+import { isEmpty } from '../../utils/utils.ts'
+
+// Material-UI
+import Snackbar from '@material-ui/core/Snackbar';
+import Button from '@material-ui/core/Button';
+import MuiAlert from '@material-ui/lab/Alert';
 
 import SearchInput from '../components/SearchInput.tsx';
 import Input from '../components/Input.tsx';
@@ -17,7 +23,26 @@ const initForm = {
     username: ''
 };
 
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 export default function Enroll() {
+
+    const [state, setState] = React.useState({
+        open: false,
+        vertical: 'top',
+        horizontal: 'center',
+    });
+
+    const { vertical, horizontal, open } = state;
+
+    const handleClick = (newState) => () => {
+        setState({ open: true, ...newState });
+    };
+    const handleClose = () => {
+        setState({ ...state, open: false });
+    };
 
     const [keyword, setKeyword] = useState('');
     const [datalist, setDatalist] = useState([]);
@@ -25,7 +50,7 @@ export default function Enroll() {
     const userState = useRecoilValue(userStateAtom);
 
     useEffect(() => {
-        setValues({ ...values, username: userState?.username});
+        setValues({ ...values, username: userState?.username });
     }, []);
 
     useEffect(() => {
@@ -65,8 +90,14 @@ export default function Enroll() {
         return;
     }
 
-    const callApiEnrollKindergarten = () => {
-        KinderGartenApi.postEnrollKindergarten(values).then(res => console.log(res))
+    const callApiEnrollKindergarten = async () => {
+        if (isEmpty(values.place_name) || isEmpty(values.address_name)) {
+            handleClick({ vertical: 'top', horizontal: 'center' })();
+            return;
+        }
+        await KinderGartenApi.postEnrollKindergarten(values).then(res => console.log(res))
+        globalThis.location.reload();
+        return;
     };
 
     const searchKeyword = (ev) => setKeyword(ev.target.value);
@@ -104,13 +135,23 @@ export default function Enroll() {
                 <div className='enroll__btns_wrapper'>
                     <button className='btn' onClick={callApiEnrollKindergarten}>등록</button>
                     <button className='btn' onClick={deleteFormValues}>초기화</button>
+                    <Snackbar
+                        anchorOrigin={{ vertical, horizontal }}
+                        open={open}
+                        onClose={handleClose}
+                        key={vertical + horizontal}
+                    >
+                        <Alert severity="error">
+                            검색후에 등록을 해주세요
+                        </Alert>
+                    </Snackbar>
                 </div>
+                </div>
+                <SearchInput onChange={searchKeyword} searchEvent={search} />
+                <ul id='list' className='list__container'>
+                    {renderPlaceNameList()}
+                </ul>
+                <div className='pagination__wrapper'></div>
             </div>
-            <SearchInput onChange={searchKeyword} searchEvent={search} />
-            <ul id='list' className='list__container'>
-                {renderPlaceNameList()}
-            </ul>
-            <div className='pagination__wrapper'></div>
-        </div>
     )
 }

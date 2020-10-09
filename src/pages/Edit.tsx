@@ -9,10 +9,6 @@ const initForm = {
 
 export default function Edit() {
 
-    useEffect(() => {
-        console.log(editForm)
-    });
-
     const [editForm, setEditForm] = useState(initForm);
 
     const inputHandler = (ev) => {
@@ -22,9 +18,13 @@ export default function Edit() {
         return;
     };
 
+    useEffect(() => {
+        console.log(editForm)
+    }, [editForm]);
 
     const callApiEditProfile = async () => {
         await UserApi.enrollUserChild(editForm).then(res => console.log(res));
+        return;
     };
 
     return (

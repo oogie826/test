@@ -66,6 +66,7 @@ export default function LoginDialog({
         if (!hasEmptyValues(loginVals)) {
             await UserApi.signUp(loginVals).then(res => console.log(res));
             setUserState(jwtDecode(getCookie('access_token')));
+            closeDialog();
         }
         return;
     }

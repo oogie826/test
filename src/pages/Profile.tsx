@@ -12,10 +12,26 @@ import Enroll from './Enroll.tsx'
 import Edit from './Edit.tsx'
 import DescriptionList from '../components/DescriptionList.tsx'
 
+//Material-UI
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+
+const useStyles = makeStyles((theme) => ({
+    margin: {
+        margin: theme.spacing(1),
+    },
+    extendedIcon: {
+        marginRight: theme.spacing(1),
+    },
+}));
+
 import '../styles/Profile.scss'
 
 export default function Profile() {
-
+    const classes = useStyles();
     const history = useHistory();
     const userState: Obj = useRecoilValue(userStateAtom);
     const [kinder, setKinder] = useState([]);
@@ -35,7 +51,7 @@ export default function Profile() {
         }
 
         return () => { isMounted = false; }
-    })
+    }, [])
 
     const callApiKindergartenInfo = async () => {
         const params = {
@@ -43,6 +59,7 @@ export default function Profile() {
         };
         const response = await KinderGartenApi.getKindergartenInfoByUsername(qs.stringify(params));
         setKinder(response.data);
+        return;
     };
 
     const linkTo = (placeName, addressName) => {
@@ -76,9 +93,9 @@ export default function Profile() {
         const { pKinderDesc, tKinderDesc } = defaultDescription;
         if (kinder) {
             return kinder.map((el, idx) =>
-                <div className='item' key={idx} onClick={() => linkTo(el.place_name, el.address_name)}>
+                <Button size="small" className={classes.margin} key={idx} onClick={() => linkTo(el.place_name, el.address_name)}>
                     {el.place_name}
-                </div>
+                </Button>
             )
         }
         else {

@@ -11,15 +11,14 @@ exports.signUp = async function(req, resp, next) {
         console.log(req.body)
         const query = {
             username: req.body.username,
-            password: req.body.password.trim(),
+            password: req.body.password,
         };
 
         await new User(query).save((err, res) => {
-            resp.status(201).json({
-                description: 'Sign-up succeed'
-            })
+            if (err) throw err;
             mongoConn.disconn();
         })
+        next();
     }
     catch (err) {
         throw err;
@@ -44,6 +43,8 @@ exports.login = async function(req, resp, next) {
             }
             const token = jwt.sign({
                 username: res.username,
+                child_name: res.child_name,
+                place_name: res.place_name,
                 auth: res.auth
             }, 
             JWT_SECRET_KEY,
@@ -74,7 +75,7 @@ exports.enrollUserChild = async function (req, resp, next) {
             upsert: true
         };
         mongoConn.conn();
-        await User.findOneAndUpdate({username: req.body.username}, query, options, (err, res) => {
+        await User.findOneAndUpdate({username: req.body.username}, query, (err, res) => {
             if (err) throw err;
         })
         resp.status(200).end();

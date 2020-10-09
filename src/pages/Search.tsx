@@ -73,10 +73,10 @@ export default function Search() {
         }
 
         function displayPagination(pagination) {
-            let paginationEl = document.getElementsByClassName('pagination__wrapper')[0],
+            let paginationEl = document.getElementById('pagination'),
                 fragment = document.createDocumentFragment(),
                 i;
-
+            
             // 기존에 추가된 페이지번호를 삭제합니다
             while (paginationEl?.hasChildNodes()) {
                 paginationEl.removeChild(paginationEl.lastChild);

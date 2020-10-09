@@ -5,8 +5,30 @@ import { userStateAtom, loginDialogAtom } from '../recoils/global.ts'
 
 import SVG from '../components/SVG.tsx'
 
+//Material-UI
+import { makeStyles } from '@material-ui/core/styles';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import Divider from '@material-ui/core/Divider';
+import InboxIcon from '@material-ui/icons/Inbox';
+import DraftsIcon from '@material-ui/icons/Drafts';
+
 import '../styles/Navs.scss'
 import '../styles/ProfileNav.scss'
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        width: '100%',
+        maxWidth: 360,
+        backgroundColor: theme.palette.background.paper,
+    },
+}));
+
+function ListItemLink(props) {
+    return <ListItem button component="a" {...props} />;
+}
 
 function useOutsideClick(ref, callback) {
     useEffect(() => {
@@ -23,7 +45,7 @@ function useOutsideClick(ref, callback) {
     }, [ref])
 }
 
-export default function Navs({logout}) {
+export default function Navs({ logout }) {
 
     const [loginDialogState, setLoginDialogState] = useRecoilState(loginDialogAtom);
     const [userState, setUserState] = useRecoilState(userStateAtom);
@@ -76,21 +98,14 @@ function ProfileNav({ logout, closeProfileNav }) {
     return (
         <div tabIndex={2} ref={ref} id='profile-nav__container' className='profile-nav__container'>
             <div className='profile-nav__wrapper'>
-                <div>
-                    <div>
-                        <button onClick={logout}>로그아웃</button>
-                    </div>
-                </div>
-                <div>
-                    <div>
-                        <Link className='profile-nav__link' to='/profile'>
-                            프로필로 이동하기
-                    </Link>
-                        <Link className='profile-nav__link' to='/'>
-                            유치원 이동하기
-                    </Link>
-                    </div>
-                </div>
+                <List component="nav" aria-label="secondary mailbox folders">
+                    <ListItem button onClick={logout}>
+                        <ListItemText primary="로그아웃" />
+                    </ListItem>
+                    <ListItemLink href="/profile">
+                        <ListItemText primary="내 정보" />
+                    </ListItemLink>
+                </List>
             </div>
         </div>
     )

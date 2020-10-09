@@ -170,14 +170,13 @@ export default function KinderMain({
                                 <div id='map' style={{ height: '300px', width: '450px' }}></div>
                             </div>
                             <div>
-                                <h2>한 줄 평가</h2>
-                                <p>인증된 사용자만 평가할 수 있어요</p>
+                                <h2>리뷰</h2>
                                 <div>
                                     <Rate defaultValue={1} onChange={(value) => setReview({ ...review, rating: value })} />
                                     <TextField
-                                        label="Multiline"
+                                        label="Comment"
                                         multiline
-                                        rows={4}
+                                        rows={2}
                                         onChange={(ev) => setReview({ ...review, comment: ev.target.value })}
                                         variant="outlined"
                                     />
@@ -185,7 +184,6 @@ export default function KinderMain({
                                 </div>
                             </div>
                             <div className='kinder-review-container'>
-                                <div className='kinder-review-title'>리뷰</div>
                                 {loadedReviews ? renderReviews() : null}
                             </div>
                         </div>
