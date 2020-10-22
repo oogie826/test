@@ -4,7 +4,7 @@ const User = require('../../database/models/users');
 const getXLSdata = require('./excel')
 const qs = require('qs');
 
-exports.enrollKindergarten = async function(req, resp, next) {
+exports.enrollKindergarten = async function (req, resp, next) {
     try {
         console.log(req.body)
         const updateQuery = {
@@ -19,18 +19,18 @@ exports.enrollKindergarten = async function(req, resp, next) {
             new: true,
             setDefaultOnInsert: true
         };
-        
+
         mongoConn.conn();
-        const enrollKinder = Kindergarten.findOneAndUpdate({place_name: updateQuery.place_name}, updateQuery, options, (err, res) => {
+        const enrollKinder = Kindergarten.findOneAndUpdate({ place_name: updateQuery.place_name }, updateQuery, options, (err, res) => {
             if (err) throw err;
         });
 
-        const enrollKinderInfoToUser = User.findOneAndUpdate({username: updateQuery.username}, {kindergarten_name: updateQuery.place_name}, (err, res) => {
+        const enrollKinderInfoToUser = User.findOneAndUpdate({ username: updateQuery.username }, { kindergarten_name: updateQuery.place_name }, (err, res) => {
             if (err) throw err;
         })
-        
+
         await Promise.all([enrollKinder, enrollKinderInfoToUser]).then(
-            resp.status(200).json({description: 'Enrolled'})
+            resp.status(200).json({ description: 'Enrolled' })
         );
 
         mongoConn.disconn();
@@ -60,12 +60,12 @@ exports.enrollReview = async function (req, resp, next) {
     };
     try {
         mongoConn.conn();
-        Kindergarten.findOneAndUpdate({place_name: req.body.place_name}, updateQuery, options, (err, res) => {
+        Kindergarten.findOneAndUpdate({ place_name: req.body.place_name }, updateQuery, options, (err, res) => {
             if (err) throw err;
             mongoConn.disconn();
         });
     }
-    catch(err) {
+    catch (err) {
         throw err;
     }
     return resp.status(200).end();
@@ -76,22 +76,32 @@ exports.getKindergartenInfo = async function (req, resp, next) {
         const params = qs.parse(req.params.params);
         console.log(params)
         mongoConn.conn();
-        const xls = await getXLSdata(params.sido, params.place_name);
-        const result = await Kindergarten.findOne({place_name: params.place_name});
-        if (result !== null && xls !== null) {
+        const result = await Kindergarten.findOne({ place_name: params.place_name, address_name: params.address_name });
+        const xls = await getXLSdata(params.sido, (params.place_name).trim());
+        console.log(result)
+        console.log(xls)
+        mongoConn.disconn();
+        if (xls !== null && result !== null) {
             resp.send({
                 kinder_info: result,
                 gov_info: xls
             });
+            return;
+        }
+        else if (xls !== null && result === null) {
+            resp.send({
+                gov_info: xls
+            })
+            return;
         }
         else {
-            resp.json({error: 'No result'}).send();
+            resp.json({ error: 'No result' }).send();
+            return;
         }
     }
     catch (err) {
         throw err;
     }
-    mongoConn.disconn();
     return;
 }
 
@@ -100,7 +110,7 @@ exports.getKindergartenInfoByUsername = async function (req, resp, next) {
         const params = qs.parse(req.params.params);
         console.log(req.params)
         mongoConn.conn();
-        const result = await Kindergarten.find({username: params.username});
+        const result = await Kindergarten.find({ username: params.username });
         if (result) {
             resp.send(result)
         }
