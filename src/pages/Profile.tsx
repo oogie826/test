@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Link, Switch, Route, useHistory } from 'react-router-dom'
 import { useRecoilValue, useRecoilState } from 'recoil'
+import jwtDecode from 'jwt-decode'
+import * as browserUtils from '../../utils/browserUtils.ts'
 import * as qs from 'qs'
 
 import { userStateAtom } from '../recoils/global.ts'
@@ -41,6 +43,7 @@ export default function Profile() {
         tKinderDesc: (<span>유치원을 등록해서 원생 관리 및 학부모 소통을 이용할 수 있어요.</span>)
     };
 
+    console.log(kinder)
     // TODO: 등록 된 유치원인지 확인하기
     useEffect(() => {
         let isMounted = true;
@@ -52,10 +55,11 @@ export default function Profile() {
 
         return () => { isMounted = false; }
     }, [])
-
     const callApiKindergartenInfo = async () => {
+        const token = browserUtils.getCookie('access_token');
+
         const params = {
-            username: userState.username
+            username: jwtDecode(token).username
         };
         const response = await KinderGartenApi.getKindergartenInfoByUsername(qs.stringify(params));
         setKinder(response.data);
@@ -68,6 +72,7 @@ export default function Profile() {
     };
 
     const renderUserInfo = () => {
+        console.log(userState)
         if (userState) {
             return (
                 <>
@@ -75,7 +80,8 @@ export default function Profile() {
                         {userState.username}
                     </DescriptionList>
                     <DescriptionList title='권한'>
-                        {userState.auth}
+                        {userState.parent ? '학부모' : null}
+                        {userState.teacher ? '교사' : null}
                     </DescriptionList>
                     <DescriptionList title='자녀'>
                         {userState.child_name}
@@ -99,7 +105,7 @@ export default function Profile() {
             )
         }
         else {
-            return userState.auth === 'parent' ? pKinderDesc : tKinderDesc;
+            return userState.parent ? pKinderDesc : tKinderDesc;
         }
     };
 

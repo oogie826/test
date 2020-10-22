@@ -10,6 +10,12 @@ import { isEmpty } from '../../utils/utils.ts'
 import Snackbar from '@material-ui/core/Snackbar';
 import Button from '@material-ui/core/Button';
 import MuiAlert from '@material-ui/lab/Alert';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+
 
 import SearchInput from '../components/SearchInput.tsx';
 import Input from '../components/Input.tsx';
@@ -34,6 +40,12 @@ export default function Enroll() {
         vertical: 'top',
         horizontal: 'center',
     });
+
+    const [sido, setSido] = useState('')
+
+    const sidoChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+        setSido(event.target.value as string);
+    };
 
     const { vertical, horizontal, open } = state;
 
@@ -146,12 +158,12 @@ export default function Enroll() {
                         </Alert>
                     </Snackbar>
                 </div>
-                </div>
-                <SearchInput onChange={searchKeyword} searchEvent={search} />
-                <ul id='list' className='list__container'>
-                    {renderPlaceNameList()}
-                </ul>
-                <div className='pagination__wrapper'></div>
             </div>
+            <SearchInput onChange={searchKeyword} searchEvent={search} />
+            <ul id='list' className='list__container'>
+                {renderPlaceNameList()}
+            </ul>
+            <div className='pagination__wrapper'></div>
+        </div>
     )
 }

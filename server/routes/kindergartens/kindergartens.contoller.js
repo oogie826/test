@@ -1,6 +1,7 @@
 const mongoConn = require('../../database/mongoConn');
 const Kindergarten = require('../../database/models/kindergartens');
 const User = require('../../database/models/users');
+const getXLSdata = require('./excel')
 const qs = require('qs');
 
 exports.enrollKindergarten = async function(req, resp, next) {
@@ -73,22 +74,31 @@ exports.enrollReview = async function (req, resp, next) {
 exports.getKindergartenInfo = async function (req, resp, next) {
     try {
         const params = qs.parse(req.params.params);
+        console.log(params)
         mongoConn.conn();
+        const xls = await getXLSdata(params.sido, params.place_name);
         const result = await Kindergarten.findOne({place_name: params.place_name});
-        if (result) {
-            resp.send(result)
+        if (result !== null && xls !== null) {
+            resp.send({
+                kinder_info: result,
+                gov_info: xls
+            });
         }
-        mongoConn.disconn();
+        else {
+            resp.json({error: 'No result'}).send();
+        }
     }
     catch (err) {
         throw err;
     }
+    mongoConn.disconn();
     return;
 }
 
 exports.getKindergartenInfoByUsername = async function (req, resp, next) {
     try {
         const params = qs.parse(req.params.params);
+        console.log(req.params)
         mongoConn.conn();
         const result = await Kindergarten.find({username: params.username});
         if (result) {

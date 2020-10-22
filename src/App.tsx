@@ -26,11 +26,8 @@ const KAKAO_JS_KEY = process.env.REACT_APP_KAKAO_JS_KEY;
 
 function initApp() {
     browserUtils.consoleLog('App Init', {fontWeight: 'bold'});
-    const jsKey = 'ad98ca818bb064b0b2493181da6cae21'
-    const kakaoSDK = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAO_JS_KEY}&libraries=services`;
-
     document.title = 'Kinder Guard';
-
+    const kakaoSDK = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAO_JS_KEY}&libraries=services`;
     if (!document.getElementById('kakao-sdk')) {
         (() => {
             const script = document.createElement('script');
@@ -70,7 +67,6 @@ export default function App() {
     }, [])
 
     useEffect(() => {
-        browserUtils.consoleLog(`isLoginDialogOpen: ${isLoginDialogOpen.isComponentVisible} ${isLoginDialogOpen.isStyleVisible}`);
         if (isLoginDialogOpen.isComponentVisible) document.body.style.overflow = 'hidden';
         else document.body.style.overflow = 'auto';
     }, [isLoginDialogOpen])
@@ -86,8 +82,7 @@ export default function App() {
                 setUserState(jwtDecode(token))
             }
         }
-        console.log({...userState})
-    });
+    }, []);
 
     // TODO: Login 시에만 접근 가능하도록 라우팅
     return (
@@ -116,7 +111,7 @@ export default function App() {
                 : 
                 null
             }
-            <Footer />
+            {/* <Footer /> */}
         </>
     )
 }

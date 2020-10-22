@@ -1,6 +1,5 @@
 .kinder-main-container {
     display: flex;
-    border: 1px solid red;
 }
 
 .kinder-main {
@@ -9,7 +8,6 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    border: 1px solid green;
 
     .kinder-main-wrapper {
         
@@ -17,20 +15,27 @@
 }
 
 .review-input {
-    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+}
+
+.review-input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 720px;
+    border: 1px solid #808080;
 }
 
 .kinder-review-container {
-    border: 1px solid red;
 }
 
-.kinder-review-wrapper {
-    display: block;
-    margin: 1px;
-    border: 1px solid blue;
+.kinder-review-item {
+}
 
-
-    .kinder-review-item {
-
-    }
+.side-btn-wrapper {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #838383;
+    width: 720px;
 }

@@ -12,13 +12,15 @@ exports.signUp = async function(req, resp, next) {
         const query = {
             username: req.body.username,
             password: req.body.password,
+            parent: req.body.parent,
+            teacher: req.body.teacher
         };
 
         await new User(query).save((err, res) => {
             if (err) throw err;
             mongoConn.disconn();
         })
-        next();
+        resp.status(200).send();
     }
     catch (err) {
         throw err;
@@ -45,7 +47,8 @@ exports.login = async function(req, resp, next) {
                 username: res.username,
                 child_name: res.child_name,
                 place_name: res.place_name,
-                auth: res.auth
+                parent: res.parent,
+                teacher: res.teacher,
             }, 
             JWT_SECRET_KEY,
             {

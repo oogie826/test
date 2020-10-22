@@ -6,7 +6,8 @@ const userSchema = new mongoose.Schema({
     password: { type: String, required: true },
     child_name: { type: String },
     place_name: { type: String },
-    auth: {type: String, default: 'guest'}
+    parent: { type: Boolean },
+    teacher: { type: Boolean }
 });
 // auth: 'guest', 'teacher', 'parent' 
 
