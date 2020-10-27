@@ -60,7 +60,7 @@ exports.enrollReview = async function (req, resp, next) {
     };
     try {
         mongoConn.conn();
-        Kindergarten.findOneAndUpdate({ place_name: req.body.place_name }, updateQuery, options, (err, res) => {
+        Kindergarten.findOneAndUpdate({ place_name: req.body.place_name, address_name: req.body.address_name }, updateQuery, options, (err, res) => {
             if (err) throw err;
             mongoConn.disconn();
         });
@@ -81,14 +81,14 @@ exports.getKindergartenInfo = async function (req, resp, next) {
         console.log(result)
         console.log(xls)
         mongoConn.disconn();
-        if (xls !== null && result !== null) {
+        if ((xls !== null || xls !== undefined) && result !== null) {
             resp.send({
                 kinder_info: result,
                 gov_info: xls
             });
             return;
         }
-        else if (xls !== null && result === null) {
+        if ((xls !== null || xls !== undefined) && result === null) {
             resp.send({
                 gov_info: xls
             })
