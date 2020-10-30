@@ -13,6 +13,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
+import MapCard from './MapCard.tsx'
 import Rate from 'rc-rate'
 import 'rc-rate/assets/index.css';
 
@@ -24,6 +25,7 @@ import '../../styles/KinderMain.scss'
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
+        height: '100%',
         '& .MuiTextField-root': {
             margin: theme.spacing(1),
             width: '25ch',
@@ -125,37 +127,59 @@ export default function KinderMain({
 
     const renderGovInfo = () => {
         return (
-            <div>
-                우편번호: {govInfos['우편번호']}
-                현원: {govInfos['현원']}
-                전화번호: {govInfos['전화번호']}
-                놀이터수: {govInfos['놀이터수']}
-                보육실수: {govInfos['보육실수']}
-                보육실면적: {govInfos['보육실면적']}
-                어린이집유형: {govInfos['어린이집유형']}
-                통학차량운영여부: {govInfos['통학차량운영여부']}
-                운영현황: {govInfos['운영현황']}
-                보육교직원수: {govInfos['보육교직원수']}
-            </div>
+            <List>
+                <ListItem>
+                    <ListItemText primary={govInfos['어린이집유형']} secondary='어린이집유형' />
+                </ListItem>
+                <ListItem>
+                    <ListItemText primary={govInfos['운영현황']} secondary='운영현황' />
+                </ListItem>
+                <ListItem>
+                    <ListItemText primary={govInfos['우편번호']} secondary='우편번호' />
+                </ListItem>
+                <ListItem>
+                    <ListItemText primary={govInfos['전화번호']} secondary='전화번호' />
+                </ListItem>
+                <ListItem>
+                    <ListItemText primary={govInfos['현원']} secondary='현원' />
+                </ListItem>
+                <ListItem>
+                    <ListItemText primary={govInfos['놀이터실수']} secondary='놀이터실수' />
+                </ListItem>
+                <ListItem>
+                    <ListItemText primary={govInfos['보육실수']} secondary='보육실수' />
+                </ListItem>
+                <ListItem>
+                    <ListItemText primary={govInfos['보육실면적']} secondary='보육실면적' />
+                </ListItem>
+                <ListItem>
+                    <ListItemText primary={govInfos['보육교직원수']} secondary='보육교직원수' />
+                </ListItem>
+                <ListItem>
+                    <ListItemText primary={govInfos['통학차량운영여부']} secondary='통학차량운영여부' />
+                </ListItem>
+                <ListItem>
+                    <ListItemText primary={govInfos['홈페이지주소']} secondary='홈페이지주소' />
+                </ListItem>
+                <ListItem>
+                    <ListItemText primary={govInfos['인가일자']} secondary='인가일자' />
+                </ListItem>
+            </List>
         )
     }
 
     return (
         <div className='kinder-main-container'>
-            <div className='kinder-main'>
-                <div className='kinder-main-wrapper'>
+            <MapCard
+                title={history.location.state.place_name}
+                subheader={history.location.state.address_name}
+                reviews={loadedReviews ? renderReviews() : null}
+                inputReviews={
                     <div>
-                        <h1>{history.location.state.place_name}</h1>
-                        <p>{history.location.state.address_name}</p>
-                        <div id='map' style={{ height: '300px', width: '450px' }}></div>
-                    </div>
-                    {govInfos ? renderGovInfo() : null}
-                    <div>
-                        <h2>리뷰</h2>
                         <div className='review-input'>
                             <div className='review-input-container'>
                                 <TextField
-                                    style={{ width: '720px' }}
+                                    style={{ width: '40vw' }}
                                     label="Comment"
                                     multiline
                                     rows={2}
@@ -168,13 +192,11 @@ export default function KinderMain({
                             </div>
                         </div>
                     </div>
-                    <div className='kinder-review-container'>
-                        <List>
-                            {loadedReviews ? renderReviews() : null}
-                        </List>
-                    </div>
-                </div>
-            </div>
+                }
+            >
+                <div id='map' style={{ height: '300px', margin: 0 }}></div>
+            </MapCard>
+                {govInfos ? renderGovInfo() : null}
         </div>
     )
 }
