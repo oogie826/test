@@ -1,7 +1,13 @@
 import axios from 'axios';
 
 const instance = axios.create({
-    baseURL: 'http://localhost:9000/api',
+    // Dev
+    // baseURL: 'http://localhost:9000/api',
+    // Prod
+    headers: {
+        'Access-Control-Allow-Origin': '*'
+    },
+    baseURL: 'http://3.35.190.11/api',
     timeout: 10000
 });
 
