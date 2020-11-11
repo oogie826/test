@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const dotenv = require('dotenv').config();
 
 const port = process.env.port || 9000;
-const front_end = path.join(__dirname, '..', '..', 'build/')
+const front_end = path.join(__dirname, '..', 'build/')
 
 // router
 const api = require('./routes/api');

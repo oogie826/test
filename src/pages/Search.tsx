@@ -110,6 +110,8 @@ export default function Search() {
     // TODO: Have to do fix unmounted update warning
     useEffect(() => {
         const qs = Object.values(querystring.parse(document.location.search.slice(1))).join('');
+        console.log(qs);
+        console.log(query)
         if (!query && qs) createKakaoMap(qs);
     }, [])
 
